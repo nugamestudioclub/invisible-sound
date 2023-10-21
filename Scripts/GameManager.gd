@@ -13,6 +13,14 @@ func _ready():
 	for avstream in get_tree().get_nodes_in_group("VisualAudioStreamPlayer"):
 		audio_visualizer.connect("enabled", avstream, "_on_visualizer_enabled")
 		audio_visualizer.connect("disabled", avstream, "_on_visualizer_disabled")
+	
+	for interactable in get_tree().get_nodes_in_group("Interactable"):
+		interactable.connect("in_range_of", player, "_on_interactable_in_range_of")
+		interactable.connect("out_of_range_of", player, "_on_interactable_out_of_range_of")
+		player.connect("interacting_with", interactable, "_on_player_interact")
+	
+	
+	
 	player.connect("activate_visualizer", audio_visualizer, "activate")
 
 
