@@ -8,10 +8,25 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "AudioVisualizerManager",
+"language": "GDScript",
+"path": "res://Scripts/AudioVisualizerManager.gd"
+} ]
+_global_script_class_icons={
+"AudioVisualizerManager": ""
+}
+
 [application]
 
 config/name="Invisible-sound"
+run/main_scene="res://Scenes/Test.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+ResourceManager="*res://Scripts/ResourceManager.gd"
 
 [gui]
 
