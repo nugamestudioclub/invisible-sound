@@ -10,7 +10,9 @@ public interface IServiceBroker
     IAudioServiceProvider Audio { get; }
     IGraphicsServiceProvider Graphics { get; }
 
-    IServicePackage Connect(EntityType type, int id);
+    IResourceServiceProvider Resources { get; }
+
+    IServicePackage Connect(EntityType type, int id, string resourceId);
 
     void Disconnect(int id);
     

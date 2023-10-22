@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface EntityType
+public enum EntityType
 {
-    IServicePackage Services { get; }
+    // IServicePackage Services { get; }
 }
 
