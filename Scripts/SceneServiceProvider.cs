@@ -1,18 +1,46 @@
 ﻿using Collections;
 using Godot;
-using System.Xml.Linq;
 
-public class SceneServiceProvider : ISceneServiceProvider {
-	private Node currentScene;
+public class SceneServiceProvider : Node, ISceneServiceProvider {
+    Game game;
 
-	public SceneServiceProvider(Node parent) {
-		currentScene = parent;
-	}
+    ServiceBroker serviceBroker;
 
-	public ISceneService Connect(EntityType type, int id, IReadOnlyBlackboard data) {
+    private bool started = false;
+
+    public override void _EnterTree()
+    {
+        //attach service broker node to the root
+        var resourceServiceProvider = new ResourceServiceProvider();
+        var graphicsServiceProvider = new GraphicsServiceProvider();
+        serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, null);
+        game = new Game(serviceBroker);
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+        //GD.Print("Create");
+        //game.Create(0, "TestNodeEntity");
+        //GD.Print("Finished");
+    }
+
+    public override void _Process(float delta)
+    {
+        base._Process(delta);
+        if (!started)
+        {
+            started = true;
+            GD.Print("Create");
+            game.Create(0, "TestNodeEntity");
+            GD.Print("Finished");
+        }
+    }
+
+    public ISceneService Connect(EntityType type, int id, IReadOnlyBlackboard data) {
 		var scene = data.GetValue<PackedScene>("scene");
 		var sceneService = (SceneServiceNode)scene.Instance();
-		currentScene.AddChild(sceneService);
+		GetTree().Root.AddChild(sceneService);
 		return sceneService;
 	}
 }

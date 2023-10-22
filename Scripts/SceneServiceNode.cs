@@ -1,12 +1,14 @@
-﻿using Godot;
+using Godot;
 
 public class SceneServiceNode : Node, ISceneService {
 	public IServicePackage Services { get; private set; }
 
-	public override void _EnterTree() {
-		//find all of the services that are children
-		//GraphicsServiceNode graphicsServiceNode = GetChildren<GraphicsServiceNode>(0);
-		var graphicsService = GetNode<GraphicsServiceNode>("Sprite");
-		Services = new ServicePackage(this, null, graphicsService, null);
-	}
+	[Export]
+	public NodePath graphicsServicePath;
+
+	public override void _EnterTree()
+    {
+        var graphicsService = (GraphicsServiceNode)GetNode(graphicsServicePath);
+        Services = new ServicePackage(this, null, graphicsService, null);
+    }
 }
