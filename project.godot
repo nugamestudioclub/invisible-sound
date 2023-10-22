@@ -13,9 +13,21 @@ _global_script_classes=[ {
 "class": "AudioVisualizerManager",
 "language": "GDScript",
 "path": "res://Scripts/AudioVisualizerManager.gd"
+}, {
+"base": "Area2D",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://Scripts/Interactable.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scripts/Player.gd"
 } ]
 _global_script_class_icons={
-"AudioVisualizerManager": ""
+"AudioVisualizerManager": "",
+"Interactable": "",
+"Player": ""
 }
 
 [application]
