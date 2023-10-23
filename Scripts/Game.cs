@@ -16,9 +16,17 @@ public class Game : IGame
 
     public Entity Create(EntityType type, string resourceId)
     {
-        int thisId = currentId++;
-        IServicePackage serivces = ServiceProviders.Connect(type, thisId, resourceId);
-        return new Entity(this, serivces, type, thisId);
+        int id = currentId++;
+        var serivces = ServiceProviders.Connect(type, id, resourceId);
+		GD.Print($"creating new entity {id}");
+		return new Entity(this, serivces, type, id);
     }
+
+    public Entity Create(EntityType type, ISceneService sceneService) {
+        int id = currentId++;
+        var services = ServiceProviders.Connect(type, id, sceneService);
+		GD.Print($"creating extant entity {id}");
+		return new Entity(this, services, type, id);
+	}
 }
 
