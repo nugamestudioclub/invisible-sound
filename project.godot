@@ -20,14 +20,50 @@ _global_script_classes=[ {
 "path": "res://Scripts/Interactable.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "Monster",
+"language": "GDScript",
+"path": "res://Scripts/Monster.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scripts/Player.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://addons/xsm/state.gd"
+}, {
+"base": "State",
+"class": "StateAnimation",
+"language": "GDScript",
+"path": "res://addons/xsm/state_animation.gd"
+}, {
+"base": "State",
+"class": "StateLoop",
+"language": "GDScript",
+"path": "res://addons/xsm/state_loop.gd"
+}, {
+"base": "State",
+"class": "StateRand",
+"language": "GDScript",
+"path": "res://addons/xsm/state_rand.gd"
+}, {
+"base": "State",
+"class": "StateRegions",
+"language": "GDScript",
+"path": "res://addons/xsm/state_regions.gd"
 } ]
 _global_script_class_icons={
 "AudioVisualizerManager": "",
 "Interactable": "",
-"Player": ""
+"Monster": "",
+"Player": "",
+"State": "res://addons/xsm/icons/state.png",
+"StateAnimation": "res://addons/xsm/icons/state.png",
+"StateLoop": "res://addons/xsm/icons/state_loop.png",
+"StateRand": "res://addons/xsm/icons/state_rand.png",
+"StateRegions": "res://addons/xsm/icons/state_regions.png"
 }
 
 [application]
@@ -39,6 +75,14 @@ config/icon="res://icon.png"
 [autoload]
 
 ResourceManager="*res://Scripts/ResourceManager.gd"
+
+[editor]
+
+script_templates_search_path="res://addons/xsm/templates/"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/xsm/plugin.cfg" )
 
 [gui]
 

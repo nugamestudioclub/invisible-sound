@@ -17,7 +17,7 @@ func _ready():
 	self.connect("body_entered", self, "_on_body_entered")
 	self.connect("body_exited", self, "_on_body_exited")
 
-func _interact(_player : Player):
+func _interact(_player : PhysicsBody2D):
 	pass
 
 func _on_body_entered(body : Node):
@@ -28,6 +28,6 @@ func _on_body_exited(body : Node):
 	if body.is_in_group("Player"):
 		emit_signal("out_of_range_of", self)
 
-func _on_player_interact(player : Player, interacting : Interactable):
+func _on_player_interact(player : PhysicsBody2D, interacting : Interactable):
 	if self == interacting:
 		_interact(player)

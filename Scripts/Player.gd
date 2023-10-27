@@ -23,7 +23,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	if Input.is_action_just_pressed("ui_accept"):
 		if (ResourceManager.flags[ResourceManager.FlagName.INFINITE_VISUALIZER] 
 		or ResourceManager.use_battery()):
@@ -32,18 +31,18 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if interact_field.size() > 0:
 			emit_signal("interacting_with", self, interact_field[0])
-	
+
+
+func _physics_process(delta):
 	var move_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
 	var velocity = move_input.normalized() * speed
 	move_and_slide(velocity)
-	
-	
 
-func _on_interactable_in_range_of(interacting : Node):
+func _on_interactable_in_range_of(interacting : Interactable):
 	interact_field.append(interacting)
 	interact_field.sort_custom(self, "_sort_interactables")
 
-func _on_interactable_out_of_range_of(interacting : Node):
+func _on_interactable_out_of_range_of(interacting : Interactable):
 	interact_field.erase(interacting)
 
 func _sort_interactables(a, b):

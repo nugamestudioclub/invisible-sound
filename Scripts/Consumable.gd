@@ -1,7 +1,7 @@
 extends Interactable
 
 
-func _interact(_player : Player):
+func _interact(_player : PhysicsBody2D):
 	_consume()
 	queue_free()
 
