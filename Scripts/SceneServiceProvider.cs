@@ -1,5 +1,9 @@
 ﻿using Collections;
 using Godot;
+using System;
+using System.Collections.Generic;
+
+using CollisionPair = System.Tuple<CollisionData, CollisionData>;
 
 public class SceneServiceProvider : Node, ISceneServiceProvider {
 	Game game;
@@ -7,6 +11,11 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 	ServiceBroker serviceBroker;
 
 	private bool started = false;
+
+	private readonly Queue<CollisionPair> _collisions;
+	private readonly Dictionary<object, Dictionary<object, CollisionEventArgs>> _pendingCollisions;
+
+	public Queue<CollisionPair> Collisions => _collisions;
 
 	public override void _EnterTree() {
 		//attach service broker node to the root
@@ -30,6 +39,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 			GD.Print($"found {nodes.Count} existing entity node(s)");
 			foreach( var node in nodes ) {
 				if( node is SceneServiceNode sceneService ) {
+					sceneService.Collision += SceneService_Collision;
 					GD.Print("scene requesting creation of entity...");
 					game.Create(0, sceneService);
 				}
@@ -46,5 +56,16 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 		var sceneService = (SceneServiceNode)scene.Instance();
 		GetTree().Root.AddChild(sceneService);
 		return sceneService;
+	}
+
+	private void SceneService_Collision(object sender, CollisionEventArgs e) {
+		if( _pendingCollisions.TryGetValue(e.OtherCollider, out var otherCollisions)
+			&&  otherCollisions.TryGetValue(e.SenderCollider, out var collision) ) {
+			_collisions.Enqueue(new CollisionPair(
+				new CollisionData(collision.Sender, collision.Args),
+				new CollisionData(e.Sender, e.Args)
+			));
+			otherCollisions.Remove(e.SenderCollider);
+		}
 	}
 }
