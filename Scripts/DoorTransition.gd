@@ -1,19 +1,23 @@
 extends Area2D
 
+signal teleport_player(pos)
+signal teleport_monster(pos)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var teleport_player_to : NodePath
+export var teleport_monster_to : NodePath
 
-export var teleport_to : NodePath
-
-onready var teleport_position : Node2D = get_node(teleport_to)
+onready var player_pos : Node2D = get_node_or_null(teleport_player_to)
+onready var monster_pos : Node2D = get_node_or_null(teleport_monster_to)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("Teleporter")
 	connect("body_entered", self, "_on_body_entered")
 
 func _on_body_entered(body : Node):
-	if body.is_in_group("Player") and body is Node2D and teleport_position:
-		body.global_position = teleport_position.global_position
+	if body.is_in_group("Player") and body is Node2D:
+		if player_pos:
+			emit_signal("teleport_player", player_pos.position)
+		if monster_pos:
+			emit_signal("teleport_monster", monster_pos.position)
