@@ -10,6 +10,7 @@ export var path_follow : NodePath
 onready var path_follow_node : PathFollow2D = get_node(path_follow) as PathFollow2D
 
 export var speed : int
+export var overcharge_dist : float
 
 var target : Node2D
 
