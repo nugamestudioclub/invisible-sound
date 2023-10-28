@@ -2,11 +2,7 @@ extends KinematicBody2D
 
 class_name Monster
 
-enum MonsterState {
-	PATH, FOLLOW
-}
-
-export (MonsterState) var default_state
+export(String, "MoveOnPath", "FollowNode") var default_state
 
 onready var state_machine = $StateMachine
 
@@ -28,15 +24,6 @@ func change_monster_state(state_name : String, _args : Dictionary):
 			pass
 		"FollowNode":
 			pass
-
-func _get_state(state : int) -> String:
-	var state_name : String
-	match(state):
-		MonsterState.PATH:
-			state_name = "MoveOnPath"
-		MonsterState.FOLLOW:
-			state_name = "FollowNode"
-	return state_name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

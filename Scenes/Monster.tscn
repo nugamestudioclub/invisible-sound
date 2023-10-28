@@ -7,7 +7,7 @@
 [ext_resource path="res://Scripts/MonsterStates/MoveToPath.gd" type="Script" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/MonsterStates/FollowPath.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/BaseState.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/MonsterStates/BaseState.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )

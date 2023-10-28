@@ -1,35 +1,34 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/AudioVisualizerManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/VisualAudioStreamPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/GameManager.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Monster.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/AlarmTile.gd" type="Script" id=6]
-[ext_resource path="res://Scripts/AlarmManager.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/DoorTransition.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/AlarmManager.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -419, -221, 0, 0, 0, 0, 355, -218, 0, 0, 0, 0, 366, 218, 0, 0, 0, 0, -422, 218, 0, 0, 0, 0, -420, -222, 0, 0, 0, 0, -419, -221 )
 }
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 156, 34.5 )
+
 [node name="GameManager" type="Node"]
 script = ExtResource( 4 )
 
-[node name="AlarmManager" type="Node" parent="."]
-script = ExtResource( 7 )
-
-[node name="AlarmTimer" type="Timer" parent="AlarmManager"]
-one_shot = true
+[node name="AlarmManager" parent="." instance=ExtResource( 7 )]
 
 [node name="Monster" parent="." instance=ExtResource( 5 )]
 position = Vector2( -205, 74 )
+default_state = "MoveOnPath"
 path_follow = NodePath("../Path2D/PathFollow2D")
 
 [node name="AudioStreamPlayer2D" parent="Monster" instance=ExtResource( 2 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-modulate = Color( 1, 0.121569, 0.121569, 1 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -45,9 +44,13 @@ rotation = 0.00387363
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource( 6 )
+teleport_to = NodePath("../Position2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 84, 119.5 )
+shape = SubResource( 2 )
 
-[connection signal="timeout" from="AlarmManager/AlarmTimer" to="AlarmManager" method="_on_AlarmTimer_timeout"]
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 177, -90 )
 
 [editable path="AudioVisualizerManager"]

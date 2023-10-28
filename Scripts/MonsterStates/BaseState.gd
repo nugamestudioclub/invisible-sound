@@ -21,7 +21,7 @@ func _after_enter(_args) -> void:
 # This function is called each frame if the state is ACTIVE
 # XSM updates the root first, then the children
 func _on_update(_delta: float) -> void:
-	change_state(target._get_state(target.default_state))
+	change_state(target.default_state)
 
 
 # This function is called each frame after all the update calls
