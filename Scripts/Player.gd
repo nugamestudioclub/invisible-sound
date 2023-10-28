@@ -10,7 +10,11 @@ signal activate_visualizer()
 
 signal interacting_with(player, interacting)
 
+onready var anim_player : AnimationPlayer = $AnimationPlayer
+
 export var speed : float = 100
+
+var direction : Vector2 = Vector2(0, -1)
 
 var interact_field := [ ]
 
@@ -18,6 +22,7 @@ var interact_field := [ ]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anim_player.play("idle down")
 	pass
 
 
@@ -36,7 +41,38 @@ func _process(delta):
 func _physics_process(delta):
 	var move_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
 	var velocity = move_input.normalized() * speed
+	
 	move_and_slide(velocity)
+	
+	if move_input.x:
+		direction = Vector2(move_input.x, 0)
+	elif move_input.y:
+		direction = Vector2(0, move_input.y)
+	
+	if move_input == Vector2(0, 0):
+		match direction:
+			Vector2(0, -1):
+				anim_player.play("idle up")
+			Vector2(0, 1):
+				anim_player.play("idle down")
+			Vector2(-1, 0):
+				anim_player.play("idle left")
+			Vector2(1, 0):
+				anim_player.play("idle right")
+	else:
+		
+		match direction:
+			Vector2(0, -1):
+				anim_player.play("walk up")
+			Vector2(0, 1):
+				anim_player.play("walk down")
+			Vector2(-1, 0):
+				anim_player.play("walk left")
+			Vector2(1, 0):
+				anim_player.play("walk right")
+	
+	print(direction)
+	print(anim_player.current_animation)
 
 func _on_interactable_in_range_of(interacting : Interactable):
 	interact_field.append(interacting)
