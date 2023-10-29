@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class SceneServiceNode : Node, ISceneService {
+public class SceneServiceNode : Node2D, ISceneService {
 	public IServicePackage Services { get; private set; }
 
 	[Export]

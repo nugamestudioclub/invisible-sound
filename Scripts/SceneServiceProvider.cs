@@ -12,8 +12,8 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 
 	private bool started = false;
 
-	private readonly Queue<CollisionPair> _collisions;
-	private readonly Dictionary<object, Dictionary<object, CollisionEventArgs>> _pendingCollisions;
+	private readonly Queue<CollisionPair> _collisions = new Queue<CollisionPair>();
+	private readonly Dictionary<object, Dictionary<object, CollisionEventArgs>> _pendingCollisions = new Dictionary<object, Dictionary<object, CollisionEventArgs>>();
 
 	public Queue<CollisionPair> Collisions => _collisions;
 
@@ -46,8 +46,8 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 			}
 
 			started = true;
-			GD.Print("Create");
-			var entity = game.Create(0, "TestNodeEntity");
+			//GD.Print("Create");
+			//var entity = game.Create(0, "TestNodeEntity");
 		}
 	}
 
@@ -65,7 +65,14 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 				new CollisionData(collision.Sender, collision.Args),
 				new CollisionData(e.Sender, e.Args)
 			));
+			
 			otherCollisions.Remove(e.SenderCollider);
-		}
-	}
+
+
+        }
+        if (e.Args.TryGetValue("(x,y)", out string location))
+        {
+            GD.Print($"stepped on tile with location {location}");
+        }
+    }
 }

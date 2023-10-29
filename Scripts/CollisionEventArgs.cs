@@ -17,5 +17,11 @@ public class CollisionEventArgs : EventArgs {
 		Exceptions.ArgumentNull.ThrowIfNull(senderCollider, nameof(senderCollider));
 		Exceptions.ArgumentNull.ThrowIfNull(otherCollider,nameof(otherCollider));
 		Exceptions.ArgumentNull.ThrowIfNull(args, nameof(args));
-	}
+
+		_sender = sender;
+		_senderCollider = senderCollider;
+		_otherCollider = otherCollider;
+		_args = args;
+
+    }
 }

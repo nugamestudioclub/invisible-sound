@@ -1,12 +1,11 @@
 using Godot;
 using System;
 using System.Linq;
-public class TilePuzzle : Node2D
+public class TilePuzzle : SceneServiceNode
 {
     public const int ROW_WIDTH = 5;
     public const int COL_HEIGHT = 5;
-    private TilePuzzleTile[,] tiles = new TilePuzzleTile[ROW_WIDTH, COL_HEIGHT];
-
+    private PuzzleTile[,] tiles = new PuzzleTile[ROW_WIDTH, COL_HEIGHT];
 
     public PuzzleTileState[,] InState { get; } = ConvertToStates(new int[ROW_WIDTH, COL_HEIGHT]
     {
@@ -43,11 +42,14 @@ public class TilePuzzle : Node2D
 
     public override void _Ready()
     {
+        base._Ready();
         for (int j = 0; j < ROW_WIDTH; j++)
         {
             for (int i = 0; i < COL_HEIGHT; i++)
             {
-                tiles[j,i] = GetNode<TilePuzzleTile>($"{i},{j}");
+                PuzzleTile currentTile = GetNode<PuzzleTile>($"{i},{j}");
+                tiles[j, i] = currentTile;
+                currentTile.Entered += Tile_Entered;
             }
         }
         ApplyPattern(InState);
@@ -64,6 +66,8 @@ public class TilePuzzle : Node2D
         }
     }
 
-    
-
+    private void Tile_Entered(object sender, AreaEventArgs e)
+    {
+        OnCollision(new CollisionEventArgs(this, e.AreaCollider, e.OtherCollider, e.Args));
+    }
 }
