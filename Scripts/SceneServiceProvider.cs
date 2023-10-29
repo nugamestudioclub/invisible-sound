@@ -51,6 +51,20 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 		}
 	}
 
+	public override void _PhysicsProcess(float delta) {
+		base._PhysicsProcess(delta);
+		var log = new System.Action<CollisionData>((collisionData) => {
+			if( collisionData.Args.TryGetValue<string>("(x,y)", out var location) )
+				GD.Print($"\tstepped on tile with location {location}");
+		});
+		while( _collisions.Count > 0 ) {
+			var collision = _collisions.Dequeue();
+			log(collision.Item1);
+			log(collision.Item2);
+		}
+		_pendingCollisions.Clear();
+	}
+
 	public ISceneService Connect(EntityType type, int id, IReadOnlyBlackboard data) {
 		var scene = data.GetValue<PackedScene>("scene");
 		var sceneService = (SceneServiceNode)scene.Instance();
@@ -59,29 +73,34 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 	}
 
 	private void SceneService_Collision(object sender, CollisionEventArgs e) {
+		GD.Print($"{nameof(SceneServiceProvider)}.{nameof(SceneService_Collision)}");
 		if( _pendingCollisions.TryGetValue(e.OtherCollider, out var otherCollisions)
-			&&  otherCollisions.TryGetValue(e.SenderCollider, out var collision) ) {
-			_collisions.Enqueue(new CollisionPair(
-				new CollisionData(collision.Sender, collision.Args),
-				new CollisionData(e.Sender, e.Args)
-			));
-			
-			otherCollisions.Remove(e.SenderCollider);
-            if (e.Args.TryGetValue("(x,y)", out string location))
-            {
-                GD.Print($"stepped on tile with location {location}");
-            }
-
-        }
+			&&  otherCollisions.TryGetValue(e.SenderCollider, out var existingCollision) )
+			HandlePendingCollision(e, existingCollision);
 		else
-		{
-            var dict = new Dictionary<object, CollisionEventArgs>
-            {
-                { e.OtherCollider, e }
-            };
+			RegisterPendingCollision(e);
+	}
 
-            _pendingCollisions.Add(e.SenderCollider, dict);
+	private void HandlePendingCollision(CollisionEventArgs newCollision, CollisionEventArgs existingCollision) {
+		GD.Print($"found matching for {newCollision.Sender.GetHashCode()} from {existingCollision.Sender.GetHashCode()}");
+		_collisions.Enqueue(new CollisionPair(
+			new CollisionData(existingCollision.Sender, existingCollision.Args),
+			new CollisionData(newCollision.Sender, newCollision.Args)
+		));
+		_pendingCollisions[existingCollision.SenderCollider].Remove(newCollision.SenderCollider);
+	}
+
+	private void RegisterPendingCollision(CollisionEventArgs e) {
+
+		GD.Print($"\tadding collision from {e.Sender.GetHashCode()}");
+		if( _pendingCollisions.TryGetValue(e.SenderCollider, out var senderCollisions) ) {
+			senderCollisions[e.OtherCollider] = e;
 		}
-        
-    }
+		else {
+			senderCollisions = new Dictionary<object, CollisionEventArgs>() {
+				{ e.OtherCollider, e }
+			};
+			_pendingCollisions.Add(e.SenderCollider, senderCollisions);
+		}
+	}
 }
