@@ -23,8 +23,9 @@ script = ExtResource( 4 )
 
 [node name="Monster" parent="." instance=ExtResource( 5 )]
 position = Vector2( -205, 74 )
-default_state = "MoveOnPath"
+default_state = "ChargeNode"
 path_follow = NodePath("../Path2D/PathFollow2D")
+overcharge_dist = 128.0
 
 [node name="AudioStreamPlayer2D" parent="Monster" instance=ExtResource( 2 )]
 

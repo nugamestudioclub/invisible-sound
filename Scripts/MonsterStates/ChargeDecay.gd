@@ -28,14 +28,16 @@ func _after_enter(_args) -> void:
 # This function is called each frame if the state is ACTIVE
 # XSM updates the root first, then the children
 func _on_update(_delta: float) -> void:
-	
-	var velocity = monster.speed
-	
-	monster.move_and_slide(velocity * charge_direction)
-	
-	dist_traveled += velocity * _delta
+	print(charge_direction)
 	if dist_traveled >= monster.overcharge_dist:
-		change_state("Idle")
+		change_state("ChargeCooldown")
+	else:
+		var velocity = monster.speed
+		
+		monster.move_and_slide(velocity * charge_direction)
+		
+		dist_traveled += velocity * _delta
+	
 	pass
 
 

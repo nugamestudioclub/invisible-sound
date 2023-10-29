@@ -80,7 +80,7 @@ script = ExtResource( 2 )
 disabled = false
 debug_mode = false
 timed = false
-next_state = NodePath("../Idle")
+next_state = NodePath("GoToNode")
 
 [node name="GoToNode" type="Node" parent="StateMachine/ChargeNode"]
 script = ExtResource( 9 )
@@ -95,3 +95,12 @@ disabled = false
 debug_mode = false
 timed = false
 next_state = NodePath("")
+
+[node name="ChargeCooldown" type="Node" parent="StateMachine/ChargeNode"]
+script = ExtResource( 2 )
+disabled = false
+debug_mode = false
+timed = true
+waiting_time = 1.0
+on_timer_finished = 3
+next_state = NodePath("../GoToNode")

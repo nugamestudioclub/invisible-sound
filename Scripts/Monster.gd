@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Monster
 
-export(String, "MoveOnPath", "FollowNode") var default_state
+export(String, "MoveOnPath", "FollowNode", "ChargeNode") var default_state
 
 onready var state_machine = $StateMachine
 
@@ -12,7 +12,8 @@ onready var path_follow_node : PathFollow2D = get_node(path_follow) as PathFollo
 export var speed : int
 export var overcharge_dist : float
 
-var target : Node2D
+export var target_path : NodePath
+var target : Node2D = get_node_or_null(target_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

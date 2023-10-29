@@ -3,8 +3,11 @@ extends State
 
 var monster : Monster
 
-var to_follow : Node2D
+var target_point : Vector2
 var direction_to_point : Vector2
+var dist_to_point : float
+
+var distance_moved : float
 
 #
 # FUNCTIONS TO INHERIT IN YOUR STATES
@@ -14,7 +17,10 @@ var direction_to_point : Vector2
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
 	monster = target as Monster
-	to_follow = monster.target
+	target_point = monster.target.position
+	direction_to_point = monster.position.direction_to(target_point)
+	dist_to_point = monster.position.distance_to(target_point)
+	distance_moved = 0
 
 
 # This function is called just after the state enters
@@ -28,13 +34,19 @@ func _after_enter(_args) -> void:
 func _on_update(_delta: float) -> void:
 	var velocity = monster.speed
 	
-	var dist_to_point = monster.position.distance_to(to_follow.position)
+	var cur_dist = monster.position.distance_to(target_point)
 	
-	monster.move_and_slide(min(velocity, dist_to_point / _delta) 
-		* monster.position.direction_to(to_follow.position))
+	var old_pos = monster.position
 	
-	if monster.position.is_equal_approx(to_follow.position):
-		change_state("ChargeDecay", { "direction" : monster.position.direction_to(to_follow.position)})
+	monster.move_and_slide(min(velocity, cur_dist / _delta) 
+		* direction_to_point)
+	
+	distance_moved += monster.position.distance_to(old_pos)
+	
+	if distance_moved >= dist_to_point:
+		change_state("ChargeDecay", { "direction" : direction_to_point})
+	
+	print(distance_moved)
 
 
 # This function is called each frame after all the update calls
