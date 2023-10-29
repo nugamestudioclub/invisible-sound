@@ -1,21 +1,12 @@
+using Collections;
 using Godot;
 using System;
 
 public class PlayerEntity : SceneServiceNode
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public void _Player_area_collision(KinematicBody2D player, Area2D area)
     {
-        
+        GD.Print("inside player entity");
+        OnCollision(new CollisionEventArgs(this, player, area, new Blackboard()));
     }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }

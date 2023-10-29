@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Puzzles/TilePuzzle.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/GraphicsServiceNode.cs" type="Script" id=5]
 
-[node name="Node2D" type="Node2D" groups=["entity"]]
+[node name="TilePuzzle" type="Node2D" groups=["entity"]]
 position = Vector2( 25, 25 )
 script = ExtResource( 3 )
 graphicsServicePath = NodePath("Node")

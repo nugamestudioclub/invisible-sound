@@ -40,6 +40,11 @@ public class PuzzleTile : Area2D
         // add x,y or other data to this
         args.SetValue("(x,y)", Name);
         AreaEventArgs areaEvent = new AreaEventArgs(this, body, args);
+        if (body is KinematicBody2D kb)
+        {
+            GD.Print("inside body entered with kb");
+            kb.EmitSignal("area_collision", kb, this);
+        }
         OnEntered(areaEvent);
     }
 

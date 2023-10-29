@@ -67,12 +67,21 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 			));
 			
 			otherCollisions.Remove(e.SenderCollider);
-
+            if (e.Args.TryGetValue("(x,y)", out string location))
+            {
+                GD.Print($"stepped on tile with location {location}");
+            }
 
         }
-        if (e.Args.TryGetValue("(x,y)", out string location))
-        {
-            GD.Print($"stepped on tile with location {location}");
-        }
+		else
+		{
+            var dict = new Dictionary<object, CollisionEventArgs>
+            {
+                { e.OtherCollider, e }
+            };
+
+            _pendingCollisions.Add(e.SenderCollider, dict);
+		}
+        
     }
 }

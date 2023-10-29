@@ -10,6 +10,8 @@ signal activate_visualizer()
 
 signal interacting_with(player, interacting)
 
+signal area_collision(player, area)
+
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 
 export var speed : float = 100
