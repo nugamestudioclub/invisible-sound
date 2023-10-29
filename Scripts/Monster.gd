@@ -23,9 +23,15 @@ func _ready():
 func change_monster_state(state_name : String, _args : Dictionary):
 	match(state_name):
 		"MoveOnPath":
-			pass
+			if _args.has("target") and _args["target"] is PathFollow2D:
+				path_follow_node = _args["target"] as PathFollow2D
 		"FollowNode":
-			pass
+			if _args.has("target") and _args["target"] is Node2D:
+				target = _args["target"] as Node2D
+		"ChargeNode":
+			if _args.has("target") and _args["target"] is Node2D:
+				target = _args["target"] as Node2D
+	state_machine.change_state(state_name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
