@@ -1,5 +1,6 @@
-﻿public interface IGame
-{
-    IServiceBroker ServiceProviders { get; }
-    Entity Create(EntityType type, string resourceId);
+﻿public interface IGame {
+	IServiceBroker ServiceProviders { get; }
+	Entity CreateEntity(EntityType type, string resourceId);
+	Entity GetEntityByName(string name);
+	void UpdatePhysics(float delta);
 }

@@ -1,6 +1,5 @@
 ﻿using Collections;
 using Godot;
-using System;
 using System.Collections.Generic;
 
 using CollisionPair = System.Tuple<CollisionData, CollisionData>;
@@ -41,7 +40,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 				if( node is SceneServiceNode sceneService ) {
 					sceneService.Collision += SceneService_Collision;
 					GD.Print("scene requesting creation of entity...");
-					game.Create(0, sceneService);
+					game.CreateEntity(0, sceneService);
 				}
 			}
 
@@ -53,15 +52,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 
 	public override void _PhysicsProcess(float delta) {
 		base._PhysicsProcess(delta);
-		var log = new System.Action<CollisionData>((collisionData) => {
-			if( collisionData.Args.TryGetValue<string>("(x,y)", out var location) )
-				GD.Print($"\tstepped on tile with location {location}");
-		});
-		while( _collisions.Count > 0 ) {
-			var collision = _collisions.Dequeue();
-			log(collision.Item1);
-			log(collision.Item2);
-		}
+		game.UpdatePhysics(delta);
 		_pendingCollisions.Clear();
 	}
 
@@ -73,7 +64,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 	}
 
 	private void SceneService_Collision(object sender, CollisionEventArgs e) {
-		GD.Print($"{nameof(SceneServiceProvider)}.{nameof(SceneService_Collision)}");
+		// GD.Print($"{nameof(SceneServiceProvider)}.{nameof(SceneService_Collision)}");
 		if( _pendingCollisions.TryGetValue(e.OtherCollider, out var otherCollisions)
 			&&  otherCollisions.TryGetValue(e.SenderCollider, out var existingCollision) )
 			HandlePendingCollision(e, existingCollision);
@@ -82,7 +73,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 	}
 
 	private void HandlePendingCollision(CollisionEventArgs newCollision, CollisionEventArgs existingCollision) {
-		GD.Print($"found matching for {newCollision.Sender.GetHashCode()} from {existingCollision.Sender.GetHashCode()}");
+		// GD.Print($"found matching for {newCollision.Sender.GetHashCode()} from {existingCollision.Sender.GetHashCode()}");
 		_collisions.Enqueue(new CollisionPair(
 			new CollisionData(existingCollision.Sender, existingCollision.Args),
 			new CollisionData(newCollision.Sender, newCollision.Args)
@@ -92,7 +83,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 
 	private void RegisterPendingCollision(CollisionEventArgs e) {
 
-		GD.Print($"\tadding collision from {e.Sender.GetHashCode()}");
+		// GD.Print($"\tadding collision from {e.Sender.GetHashCode()}");
 		if( _pendingCollisions.TryGetValue(e.SenderCollider, out var senderCollisions) ) {
 			senderCollisions[e.OtherCollider] = e;
 		}

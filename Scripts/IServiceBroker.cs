@@ -9,6 +9,7 @@ public interface IServiceBroker {
 	IAudioServiceProvider Audio { get; }
 	IGraphicsServiceProvider Graphics { get; }
 	IResourceServiceProvider Resources { get; }
+	ISceneServiceProvider Scene { get; }
 
 	IServicePackage Connect(EntityType type, int id, ISceneService sceneService);
 	IServicePackage Connect(EntityType type, int id, string resourceId);

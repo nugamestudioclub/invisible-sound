@@ -31,15 +31,16 @@ public class PuzzleTile : Area2D {
 		}
 	}
 	public void _BodyEntered(Node body) {
-
-		GD.Print($"{nameof(PuzzleTile)}.{nameof(_BodyEntered)}");
+		// GD.Print($"{nameof(PuzzleTile)}.{nameof(_BodyEntered)}");
 		IBlackboard args = new Blackboard();
 		// add x,y or other data to this
-		args.SetValue("(x,y)", Name);
+		args.SetValue("x", Position.x);
+		args.SetValue("y", Position.y);
+		args.SetValue("source", State == PuzzleTileState.Danger ? "alarm" : "floor");
 		AreaEventArgs areaEvent = new AreaEventArgs(this, body, args);
 		if( body is KinematicBody2D kb ) {
-            currentSprite.Visible = true;
-            GD.Print($"\tcollided with {nameof(KinematicBody2D)}");
+			// GD.Print($"\tcollided with {nameof(KinematicBody2D)}");
+			currentSprite.Visible = true;
 			kb.EmitSignal("area_collision", kb, this);
 		}
 		OnEntered(areaEvent);

@@ -15,8 +15,10 @@ public class SceneServiceNode : Node2D, ISceneService {
 	}
 
 	protected virtual void OnCollision(CollisionEventArgs e) {
-		GD.Print($"{nameof(SceneServiceNode)}.{nameof(OnCollision)}");
-		GD.Print($"\t'{Name}' detected collision");
+		// GD.Print($"{nameof(SceneServiceNode)}.{nameof(OnCollision)}");
+		// GD.Print($"\t'{Name}' detected collision");
 		Collision?.Invoke(this, e);
 	}
+
+	public virtual void Alert(System.Numerics.Vector2 position) { }
 }

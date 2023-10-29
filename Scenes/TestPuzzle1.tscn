@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/TilePuzzle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/PlayerEntity.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/GraphicsServiceNode.cs" type="Script" id=3]
+[ext_resource path="res://Scenes/AlarmEntity.tscn" type="PackedScene" id=4]
 
 [node name="TestPuzzle1" type="Node2D"]
 
@@ -12,3 +13,5 @@
 script = ExtResource( 3 )
 
 [node name="PlayerEntity" parent="." instance=ExtResource( 2 )]
+
+[node name="Alarm" parent="." groups=["entity"] instance=ExtResource( 4 )]
