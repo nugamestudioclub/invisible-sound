@@ -19,6 +19,7 @@ public class PuzzleTile : Area2D
     public override void _Ready()
     {
         currentSprite = GetNode<Sprite>("Sprite");
+        currentSprite.Visible = false;
     }
 
     public void ChangeState(PuzzleTileState newState)
@@ -36,6 +37,7 @@ public class PuzzleTile : Area2D
 
     public void _BodyEntered(Node body)
     {
+        currentSprite.Visible = true;
         IBlackboard args = new Blackboard();
         // add x,y or other data to this
         args.SetValue("(x,y)", Name);
@@ -46,6 +48,12 @@ public class PuzzleTile : Area2D
             kb.EmitSignal("area_collision", kb, this);
         }
         OnEntered(areaEvent);
+    }
+
+    public void _BodyExited(Node body)
+    {
+
+        currentSprite.Visible = false;
     }
 
     protected virtual void OnEntered(AreaEventArgs e)

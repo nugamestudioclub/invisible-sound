@@ -19,3 +19,4 @@ shape = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_BodyEntered"]
+[connection signal="body_exited" from="." to="." method="_BodyExited"]
