@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Monster.gd" type="Script" id=1]
 [ext_resource path="res://addons/xsm/state.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/MonsterStates/FollowPath.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/MonsterStates/BaseState.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/MonsterStates/GoToNode.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/MonsterStates/ChargeDecay.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
@@ -38,6 +40,13 @@ debug_mode = false
 timed = false
 next_state = NodePath("MoveToPath")
 
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+disabled = false
+debug_mode = false
+timed = false
+next_state = NodePath("")
+
 [node name="MoveOnPath" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 disabled = false
@@ -65,3 +74,33 @@ disabled = false
 debug_mode = false
 timed = false
 next_state = NodePath("")
+
+[node name="ChargeNode" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+disabled = false
+debug_mode = false
+timed = false
+next_state = NodePath("GoToNode")
+
+[node name="GoToNode" type="Node" parent="StateMachine/ChargeNode"]
+script = ExtResource( 9 )
+disabled = false
+debug_mode = false
+timed = false
+next_state = NodePath("")
+
+[node name="ChargeDecay" type="Node" parent="StateMachine/ChargeNode"]
+script = ExtResource( 10 )
+disabled = false
+debug_mode = false
+timed = false
+next_state = NodePath("")
+
+[node name="ChargeCooldown" type="Node" parent="StateMachine/ChargeNode"]
+script = ExtResource( 2 )
+disabled = false
+debug_mode = false
+timed = true
+waiting_time = 1.0
+on_timer_finished = 3
+next_state = NodePath("../GoToNode")

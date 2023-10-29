@@ -71,8 +71,6 @@ func _physics_process(delta):
 			Vector2(1, 0):
 				anim_player.play("walk right")
 	
-	#print(direction)
-	#print(anim_player.current_animation)
 
 func _on_interactable_in_range_of(interacting : Interactable):
 	interact_field.append(interacting)

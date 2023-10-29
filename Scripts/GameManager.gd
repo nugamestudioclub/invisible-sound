@@ -1,6 +1,7 @@
 extends Node
 
 onready var player : Node = $Player
+onready var monster : Node = $Monster
 onready var audio_visualizer : Node = $AudioVisualizerManager
 onready var alarm_manager : Node = $AlarmManager
 
@@ -23,6 +24,10 @@ func _ready():
 	for alarm_tile in get_tree().get_nodes_in_group("AlarmTile"):
 		alarm_tile.connect("activate_alarm", alarm_manager, "_on_activate_alarm")
 	
+	for teleporter in get_tree().get_nodes_in_group("Teleporter"):
+		teleporter.connect("teleport_player", player, "set_position")
+		teleporter.connect("teleport_monster", monster, "set_position")
+
 	player.connect("activate_visualizer", audio_visualizer, "activate")
 	
 	connect_monster($Monster)
