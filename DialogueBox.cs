@@ -18,4 +18,9 @@ public class DialogueBox : Label
 //  {
 //      
 //  }
+
+    public void SetDialogue(string text)
+    {
+
+    }
 }

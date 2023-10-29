@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/GraphicsServiceNode.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/PlayerEntity.cs" type="Script" id=3]
 
-[node name="PlayerEntity" type="Node2D"]
+[node name="PlayerEntity" type="Node2D" groups=["entity"]]
 script = ExtResource( 3 )
 graphicsServicePath = NodePath("Graphics")
 
