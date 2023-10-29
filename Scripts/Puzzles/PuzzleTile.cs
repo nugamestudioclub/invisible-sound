@@ -33,13 +33,13 @@ public class PuzzleTile : Area2D {
 	public void _BodyEntered(Node body) {
 
 		GD.Print($"{nameof(PuzzleTile)}.{nameof(_BodyEntered)}");
-		currentSprite.Visible = true;
 		IBlackboard args = new Blackboard();
 		// add x,y or other data to this
 		args.SetValue("(x,y)", Name);
 		AreaEventArgs areaEvent = new AreaEventArgs(this, body, args);
 		if( body is KinematicBody2D kb ) {
-			GD.Print($"\tcollided with {nameof(KinematicBody2D)}");
+            currentSprite.Visible = true;
+            GD.Print($"\tcollided with {nameof(KinematicBody2D)}");
 			kb.EmitSignal("area_collision", kb, this);
 		}
 		OnEntered(areaEvent);

@@ -9,5 +9,7 @@
 [node name="Boot" parent="." instance=ExtResource( 1 )]
 
 [node name="PoliceStation" parent="Boot" instance=ExtResource( 2 )]
+position = Vector2( 211, 176 )
 
 [node name="PlayerEntity" parent="Boot" instance=ExtResource( 3 )]
+position = Vector2( 176, 265 )
