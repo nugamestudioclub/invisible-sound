@@ -76,6 +76,14 @@ config/icon="res://icon.png"
 
 ResourceManager="*res://Scripts/ResourceManager.gd"
 
+[editor]
+
+script_templates_search_path="res://addons/xsm/templates/"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/xsm/plugin.cfg" )
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
