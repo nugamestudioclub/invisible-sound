@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Boot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/PoliceStationInterior.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/PlayerEntity.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/AlarmEntity.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Monster.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/GameManager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/AudioVisualizerManager.tscn" type="PackedScene" id=7]
 
-[node name="Node" type="Node"]
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 72, 72, 0, 0, 0, 0, 351, 68, 0, 0, 0, 0, 348, 335, 0, 0, 0, 0, 70, 338, 0, 0, 0, 0, 72, 72 )
+}
+
+[node name="TestPoliceStation" type="Node"]
 
 [node name="Boot" parent="." instance=ExtResource( 1 )]
 
@@ -16,3 +24,19 @@ position = Vector2( 211, 176 )
 position = Vector2( 176, 265 )
 
 [node name="Alarm" parent="Boot" instance=ExtResource( 4 )]
+
+[node name="Monster" parent="Boot" instance=ExtResource( 5 )]
+default_state = "MoveOnPath"
+path_follow = NodePath("../Path2D/PathFollow2D")
+target_path = NodePath("../Path2D")
+
+[node name="Path2D" type="Path2D" parent="Boot"]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Boot/Path2D"]
+position = Vector2( 72, 72 )
+rotation = -0.0143353
+
+[node name="GameManager" parent="." instance=ExtResource( 6 )]
+
+[node name="AudioVisualizerManager" parent="." instance=ExtResource( 7 )]

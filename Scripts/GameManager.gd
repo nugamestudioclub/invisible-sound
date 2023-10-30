@@ -1,14 +1,9 @@
 extends Node
 
-onready var player : Node = $Player
-onready var monster : Node = $Monster
-onready var audio_visualizer : Node = $AudioVisualizerManager
-onready var alarm_manager : Node = $AlarmManager
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+onready var player : Node = get_tree().get_nodes_in_group("Player")[0]
+onready var monster : Node = get_tree().get_nodes_in_group("Monster")[0]
+onready var audio_visualizer : Node = get_tree().get_nodes_in_group("AudioVisualizerManager")[0]
+onready var alarm_manager : Node = get_tree().get_nodes_in_group("AlarmManager")[0]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,9 +25,9 @@ func _ready():
 
 	player.connect("activate_visualizer", audio_visualizer, "activate")
 	
-	connect_monster($Monster)
+	connect_monster(monster)
 	
-	$Monster.target = $Player
+	monster.target = player
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,4 +35,4 @@ func _ready():
 #	pass
 
 func connect_monster(monster : Node):
-	alarm_manager.connect("change_monster_state", monster, "change_state")
+	alarm_manager.connect("change_monster_state", monster, "change_monster_state")

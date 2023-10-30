@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/AlarmManager.gd" type="Script" id=1]
 
-[node name="AlarmManager" type="Node"]
+[node name="AlarmManager" type="Node" groups=["AlarmManager"]]
 script = ExtResource( 1 )
 
 [node name="AlarmTimer" type="Timer" parent="."]

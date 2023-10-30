@@ -14,7 +14,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[node name="Monster" type="KinematicBody2D"]
+[node name="Monster" type="KinematicBody2D" groups=["Monster"]]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource( 1 )
 speed = 100
 
@@ -45,7 +47,7 @@ script = ExtResource( 2 )
 disabled = false
 debug_mode = false
 timed = false
-next_state = NodePath("")
+next_state = NodePath("MoveToPath")
 
 [node name="MoveOnPath" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
@@ -73,7 +75,7 @@ script = ExtResource( 3 )
 disabled = false
 debug_mode = false
 timed = false
-next_state = NodePath("")
+next_state = NodePath("GoToNode")
 
 [node name="ChargeNode" type="Node" parent="StateMachine"]
 script = ExtResource( 2 )
@@ -87,14 +89,14 @@ script = ExtResource( 9 )
 disabled = false
 debug_mode = false
 timed = false
-next_state = NodePath("")
+next_state = NodePath("../GoToNode")
 
 [node name="ChargeDecay" type="Node" parent="StateMachine/ChargeNode"]
 script = ExtResource( 10 )
 disabled = false
 debug_mode = false
 timed = false
-next_state = NodePath("")
+next_state = NodePath("../GoToNode")
 
 [node name="ChargeCooldown" type="Node" parent="StateMachine/ChargeNode"]
 script = ExtResource( 2 )

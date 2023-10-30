@@ -21,6 +21,7 @@ func _ready():
 	pass
 
 func change_monster_state(state_name : String, _args : Dictionary):
+	print(state_name)
 	match(state_name):
 		"MoveOnPath":
 			if _args.has("target") and _args["target"] is PathFollow2D:

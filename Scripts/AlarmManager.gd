@@ -12,7 +12,7 @@ var pos_node : Position2D
 func _on_activate_alarm(pos : Vector2):
 	pos_node = Position2D.new()
 	pos_node.position = pos
-	emit_signal("change_monster_state", "FollowNode", { "Node" : pos_node })
+	emit_signal("change_monster_state", "ChargeNode", { "target" : pos_node })
 	timer.start(duration)
 
 

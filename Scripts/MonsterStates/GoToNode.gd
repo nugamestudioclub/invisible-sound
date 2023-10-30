@@ -17,6 +17,8 @@ var distance_moved : float
 # XSM enters the root first, the the children
 func _on_enter(_args) -> void:
 	monster = target as Monster
+	print("monster pos")
+	print(monster.position)
 	target_point = monster.target.position
 	direction_to_point = monster.position.direction_to(target_point)
 	dist_to_point = monster.position.distance_to(target_point)
@@ -32,13 +34,13 @@ func _after_enter(_args) -> void:
 # This function is called each frame if the state is ACTIVE
 # XSM updates the root first, then the children
 func _on_update(_delta: float) -> void:
-	var velocity = monster.speed
+	var speed = monster.speed
 	
 	var cur_dist = monster.position.distance_to(target_point)
 	
 	var old_pos = monster.position
-	
-	monster.move_and_slide(min(velocity, cur_dist / _delta) 
+
+	monster.move_and_slide(min(speed, cur_dist / _delta) 
 		* direction_to_point)
 	
 	distance_moved += monster.position.distance_to(old_pos)
@@ -46,7 +48,6 @@ func _on_update(_delta: float) -> void:
 	if distance_moved >= dist_to_point:
 		change_state("ChargeDecay", { "direction" : direction_to_point})
 	
-	print(distance_moved)
 
 
 # This function is called each frame after all the update calls

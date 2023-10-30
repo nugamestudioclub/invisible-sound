@@ -34,8 +34,8 @@ public class PuzzleTile : Area2D {
 		// GD.Print($"{nameof(PuzzleTile)}.{nameof(_BodyEntered)}");
 		IBlackboard args = new Blackboard();
 		// add x,y or other data to this
-		args.SetValue("x", Position.x);
-		args.SetValue("y", Position.y);
+		args.SetValue("x", GlobalPosition.x);
+		args.SetValue("y", GlobalPosition.y);
 		args.SetValue("source", State == PuzzleTileState.Danger ? "alarm" : "floor");
 		AreaEventArgs areaEvent = new AreaEventArgs(this, body, args);
 		if( body is KinematicBody2D kb ) {

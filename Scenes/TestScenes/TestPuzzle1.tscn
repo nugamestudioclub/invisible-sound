@@ -14,4 +14,4 @@ script = ExtResource( 3 )
 
 [node name="PlayerEntity" parent="." instance=ExtResource( 2 )]
 
-[node name="Alarm" parent="." groups=["entity"] instance=ExtResource( 4 )]
+[node name="Alarm" parent="." instance=ExtResource( 4 )]
