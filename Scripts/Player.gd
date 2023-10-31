@@ -12,6 +12,8 @@ signal interacting_with(player, interacting)
 
 signal area_collision(player, area)
 
+signal footstep()
+
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 
 export var speed : float = 100
@@ -62,7 +64,6 @@ func _physics_process(delta):
 			Vector2(1, 0):
 				anim_player.play("idle right")
 	else:
-		
 		match direction:
 			Vector2(0, -1):
 				anim_player.play("walk up")
@@ -72,6 +73,7 @@ func _physics_process(delta):
 				anim_player.play("walk left")
 			Vector2(1, 0):
 				anim_player.play("walk right")
+		# emit_signal("footstep")
 	
 
 func _on_interactable_in_range_of(interacting : Interactable):
