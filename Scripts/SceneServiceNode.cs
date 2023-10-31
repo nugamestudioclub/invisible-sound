@@ -2,7 +2,8 @@ using Godot;
 using System;
 
 public class SceneServiceNode : Node2D, ISceneService {
-	public IServicePackage Services { get; private set; }
+	public Entity Entity { get; set; }
+	public IServicePackage SceneServices { get; private set; }
 
 	[Export]
 	public NodePath graphicsServicePath;
@@ -11,7 +12,7 @@ public class SceneServiceNode : Node2D, ISceneService {
 
 	public override void _EnterTree() {
 		var graphicsService = (GraphicsServiceNode)GetNode(graphicsServicePath);
-		Services = new ServicePackage(this, null, graphicsService, null);
+		SceneServices = new ServicePackage(this, null, graphicsService, null);
 	}
 
 	protected virtual void OnCollision(CollisionEventArgs e) {

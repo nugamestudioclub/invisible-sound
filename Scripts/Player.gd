@@ -73,7 +73,7 @@ func _physics_process(delta):
 				anim_player.play("walk left")
 			Vector2(1, 0):
 				anim_player.play("walk right")
-		# emit_signal("footstep")
+		emit_signal("footstep")
 	
 
 func _on_interactable_in_range_of(interacting : Interactable):

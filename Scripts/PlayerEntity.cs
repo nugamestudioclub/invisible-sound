@@ -8,4 +8,9 @@ public class PlayerEntity : SceneServiceNode
 		// GD.Print($"{nameof(PlayerEntity)}.{nameof(_Player_area_collision)}");
 		OnCollision(new CollisionEventArgs(this, player, area, new Blackboard()));
     }
+
+	public void _Player_footstep() {
+		GD.Print($"{nameof(PlayerEntity)}.{nameof(_Player_footstep)}");
+		Entity.Services.AudioService.PlayOneShot("footstep", 0, this);
+	}
 }

@@ -1,10 +1,9 @@
 ﻿using Collections;
 using Godot;
 using System.Collections.Generic;
-
 using CollisionPair = System.Tuple<CollisionData, CollisionData>;
 
-public class SceneServiceProvider : Node, ISceneServiceProvider {
+public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 	Game game;
 
 	ServiceBroker serviceBroker;
@@ -14,13 +13,19 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 	private readonly Queue<CollisionPair> _collisions = new Queue<CollisionPair>();
 	private readonly Dictionary<object, Dictionary<object, CollisionEventArgs>> _pendingCollisions = new Dictionary<object, Dictionary<object, CollisionEventArgs>>();
 
+	public event System.EventHandler<CollisionEventArgs> Collision;
+
 	public Queue<CollisionPair> Collisions => _collisions;
+	public Entity Entity { get; set; }
+
+	public IServicePackage SceneServices { get; }
 
 	public override void _EnterTree() {
 		//attach service broker node to the root
 		var resourceServiceProvider = new ResourceServiceProvider();
 		var graphicsServiceProvider = new GraphicsServiceProvider();
-		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, null);
+		var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
+		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
 	}
 
@@ -94,4 +99,6 @@ public class SceneServiceProvider : Node, ISceneServiceProvider {
 			_pendingCollisions.Add(e.SenderCollider, senderCollisions);
 		}
 	}
+
+	public void Alert(System.Numerics.Vector2 position) {	}
 }

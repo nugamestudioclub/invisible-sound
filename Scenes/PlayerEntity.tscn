@@ -14,3 +14,4 @@ graphicsServicePath = NodePath("Graphics")
 script = ExtResource( 2 )
 
 [connection signal="area_collision" from="Player" to="." method="_Player_area_collision"]
+[connection signal="footstep" from="Player" to="." method="_Player_footstep"]

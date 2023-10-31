@@ -39,8 +39,8 @@ public class ServiceBroker : IServiceBroker {
 		IServicePackage servicePackage = new ServicePackage(
 			sceneService,
 			Resources.Default,
-			sceneService.Services.GraphicsService ?? Graphics.Connect(type, id),
-			null ///
+			sceneService.SceneServices.GraphicsService ?? Graphics.Connect(type, id),
+			Audio.Default
         );
 		return servicePackage;
 	}

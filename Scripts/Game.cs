@@ -20,6 +20,7 @@ public class Game : IGame {
 		GD.Print($"creating new entity {id}: '{name}'");
 		var entity = new Entity(this, services, type, id, resourceId);
 		_entities[name] = entity;
+		services.SceneService.Entity = entity;
 		return entity;
 	}
 
@@ -28,8 +29,10 @@ public class Game : IGame {
 		var services = ServiceProviders.Connect(type, id, sceneService);
 		string name = sceneService.Name;
 		GD.Print($"creating extant entity {id}: '{name}'");
+		GD.Print($"'{name}' audio is null? {services.AudioService == null}");
 		var entity = new Entity(this, services, type, id, name);
 		_entities[name] = entity;
+		sceneService.Entity = entity;
 		return entity;
 	}
 
