@@ -29,7 +29,7 @@ public class Game : IGame {
 		var services = ServiceProviders.Connect(type, id, sceneService);
 		string name = sceneService.Name;
 		GD.Print($"creating extant entity {id}: '{name}'");
-		GD.Print($"'{name}' audio is null? {services.AudioService == null}");
+		// GD.Print($"'{name}' audio is null? {services.AudioService == null}");
 		var entity = new Entity(this, services, type, id, name);
 		_entities[name] = entity;
 		sceneService.Entity = entity;

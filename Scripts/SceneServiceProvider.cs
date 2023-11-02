@@ -45,7 +45,7 @@ public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 				if( node is SceneServiceNode sceneService ) {
 					sceneService.Collision += SceneService_Collision;
 					GD.Print("scene requesting creation of entity...");
-					game.CreateEntity(0, sceneService);
+					game.CreateEntity(sceneService.Type, sceneService);
 				}
 			}
 

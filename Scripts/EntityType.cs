@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum EntityType
-{
-    // IServicePackage Services { get; }
+public enum EntityType {
+	None,
+	Character,
 }
-

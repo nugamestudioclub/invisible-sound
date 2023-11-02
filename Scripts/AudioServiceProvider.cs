@@ -1,6 +1,6 @@
-﻿using Godot;
+﻿using Collections;
+using Godot;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 
 public class AudioServiceProvider : IAudioServiceProvider {
 	private readonly HashSet<IAudioPlayer> _players = new HashSet<IAudioPlayer>();
@@ -8,12 +8,26 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	private readonly IAudioService _default;
 	private readonly IResourceService _resourceService;
 
+	public static readonly string FootstepPath = "res://Audio/Footsteps";
+
 	public IAudioService Default => _default;
 
 	public AudioServiceProvider(IResourceService resourceService, ISceneService root = null) {
 		Exceptions.ArgumentNull.ThrowIfNull(resourceService, nameof(resourceService));
 		_resourceService = resourceService;
-		_default = new AudioService(this, root);
+		_default = new AudioService(this, new Blackboard(), root);
+	}
+
+	public IAudioService Provide(EntityType type, ISceneService parent) {
+		var data = new Blackboard();
+		if( type == EntityType.Character ) {
+			var footsteps = new HashSet<string>();
+			foreach( string name in _resourceService.Assets.Names )
+				if( name.StartsWith(FootstepPath) )
+					footsteps.Add(name);
+			data.SetValue("footsteps", footsteps);
+		}
+		return new AudioService(this, data, parent);
 	}
 
 	public IAudioPlayer Connect(int track) {

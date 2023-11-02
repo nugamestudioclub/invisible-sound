@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Collections;
+using Godot;
 
 public class ServiceBroker : IServiceBroker {
 	public ServiceBroker(
@@ -40,7 +41,7 @@ public class ServiceBroker : IServiceBroker {
 			sceneService,
 			Resources.Default,
 			sceneService.SceneServices.GraphicsService ?? Graphics.Connect(type, id),
-			Audio.Default //TODO change this to accept a proper version
+			Audio.Provide(type, sceneService)
         );
 		return servicePackage;
 	}

@@ -3,6 +3,9 @@ using System;
 
 public class SceneServiceNode : Node2D, ISceneService {
 	public Entity Entity { get; set; }
+
+	public EntityType Type { get; protected set; }
+
 	public IServicePackage SceneServices { get; private set; }
 
 	[Export]
