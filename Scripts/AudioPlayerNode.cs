@@ -29,6 +29,29 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	}
 
 	public void PlayOneShot(string name) {
-		GD.Print($"play audio '{name}'");
+        if (_parent
+			.Entity
+			.Services
+			.ResourceService
+			.Assets
+			.TryGetValue(name, out Resource result))
+		{
+			GD.Print($"playing {name}");
+			VolumeDb = 10;
+            GD.Print($"volume {VolumeDb}");
+            Stream = GD.Load<AudioStream>($"res://Audio/Footsteps/Dirt/Dirt 1.wav");//(AudioStream) result;
+            GD.Print($"Stream = null {Stream == null}");
+            GD.Print($"MaxDistance {MaxDistance}");
+
+            if (!Playing)
+			{
+                Play();
+            }
+			
+            //result
+
+
+        };
+		
 	}
 }

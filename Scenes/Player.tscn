@@ -179,3 +179,9 @@ anims/RESET = SubResource( 2 )
 "anims/walk left" = SubResource( 9 )
 "anims/walk right" = SubResource( 10 )
 "anims/walk up" = SubResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Listener2D" type="Listener2D" parent="."]
+current = true

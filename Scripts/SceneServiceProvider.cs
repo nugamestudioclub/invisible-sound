@@ -22,9 +22,9 @@ public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 
 	public override void _EnterTree() {
 		//attach service broker node to the root
-		var resourceServiceProvider = new ResourceServiceProvider();
-		var graphicsServiceProvider = new GraphicsServiceProvider();
-		var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
+		var resourceServiceProvider = GetNode<ResourceServiceProvider>("Resources");
+        var graphicsServiceProvider = new GraphicsServiceProvider();
+        var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
 		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
 	}

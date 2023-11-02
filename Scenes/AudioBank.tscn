@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/AudioBank.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/SFX.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Footsteps.cs" type="Script" id=3]
+[ext_resource path="res://Audio/Footsteps/Dirt/Dirt 4.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Footsteps/Dirt/Dirt 5.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Footsteps/Dirt/Dirt 3.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Footsteps/Dirt/Dirt 1.wav" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Footsteps/Dirt/Dirt 2.wav" type="AudioStream" id=8]
+
+[node name="AudioBank" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Footsteps" type="Node" parent="."]
+
+[node name="Dirt" type="Node" parent="Footsteps"]
+script = ExtResource( 3 )
+_variations = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ]
+
+[node name="Concrete" type="Node" parent="Footsteps"]
+
+[node name="Grass" type="Node" parent="Footsteps"]
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Indoor" type="Node" parent="Music"]
+
+[node name="Ambient" type="Node" parent="Music"]
+
+[node name="Monster" type="Node" parent="."]
+
+[node name="SFX" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+autoplay = true

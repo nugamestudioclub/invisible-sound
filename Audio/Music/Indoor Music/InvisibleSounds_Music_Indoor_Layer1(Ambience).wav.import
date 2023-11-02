@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/InvisibleSounds_Music_Indoor_Layer1(Ambience).wav-0a7017beab1fcd3b6e2d7adc45394336.sample"
+
+[deps]
+
+source_file="res://Audio/Music/Indoor Music/InvisibleSounds_Music_Indoor_Layer1(Ambience).wav"
+dest_files=[ "res://.import/InvisibleSounds_Music_Indoor_Layer1(Ambience).wav-0a7017beab1fcd3b6e2d7adc45394336.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

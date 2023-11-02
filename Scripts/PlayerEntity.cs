@@ -10,7 +10,7 @@ public class PlayerEntity : SceneServiceNode
     }
 
 	public void _Player_footstep() {
-		GD.Print($"{nameof(PlayerEntity)}.{nameof(_Player_footstep)}");
-		Entity.Services.AudioService.PlayOneShot("footstep", 0, this);
+		//GD.Print($"{nameof(PlayerEntity)}.{nameof(_Player_footstep)}");
+		Entity.Services.AudioService.PlayOneShot("res://Audio/Footsteps/Dirt/Dirt 1.wav", 0, this);
 	}
 }
