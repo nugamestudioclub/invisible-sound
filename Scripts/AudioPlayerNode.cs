@@ -13,12 +13,17 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	public ISceneService Parent {
 		get => _parent;
 		set {
-			if( value == _parent )
+            GD.Print($"{Name} trying setting new parent {value}");
+            if ( value == _parent )
 				return;
 			if( _parent is Node oldParent )
 				oldParent.RemoveChild(this);
-			if( Parent is Node newParent )
-				newParent.AddChild(this);
+			if(value is Node newParent)
+			{
+				GD.Print($"{Name} setting new parent {newParent.Name}");
+                newParent.AddChild(this);
+            }
+				
 			_parent = value;
 		}
 	}
