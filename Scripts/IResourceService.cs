@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 public interface IResourceService {
 	IBlackboard LoadScene(string resourceId);
+    IBlackboard LoadResource(string path);
     IReadOnlyBlackboard Assets { get; }
 
-    void Add<T>(IEnumerable<KeyValuePair<string, T>> data);
+    void AddRange<T>(IEnumerable<KeyValuePair<string, T>> data);
 
     
 }

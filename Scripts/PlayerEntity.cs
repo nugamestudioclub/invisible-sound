@@ -16,7 +16,7 @@ public class PlayerEntity : SceneServiceNode
 		{
 			return;
 		}
-		Entity.Services.AudioService.PlayOneShot("res://Audio/Footsteps/Dirt/Dirt 1.wav", 0, this);
+		// Entity.Services.AudioService.PlayOneShot("res://Audio/Footsteps/Dirt/Dirt 1.wav", 0, this);
 
 		//firstFootstep = false;
 	}

@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Xml.XPath;
 
 public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	private ISceneService _parent;
@@ -13,17 +14,16 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	public ISceneService Parent {
 		get => _parent;
 		set {
-            GD.Print($"{Name} trying setting new parent {value}");
-            if ( value == _parent )
+			GD.Print($"{Name} trying setting new parent {value}");
+			if( value == _parent )
 				return;
 			if( _parent is Node oldParent )
 				oldParent.RemoveChild(this);
-			if(value is Node newParent)
-			{
+			if( value is Node newParent ) {
 				GD.Print($"{Name} setting new parent {newParent.Name}");
-                newParent.AddChild(this);
-            }
-				
+				newParent.AddChild(this);
+			}
+
 			_parent = value;
 		}
 	}
@@ -34,29 +34,19 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	}
 
 	public void PlayOneShot(string name) {
-        if (_parent
-			.Entity
-			.Services
-			.ResourceService
-			.Assets
-			.TryGetValue(name, out Resource result))
-		{
-			GD.Print($"playing {name}");
-			VolumeDb = 10;
-            GD.Print($"volume {VolumeDb}");
-            Stream = GD.Load<AudioStream>($"res://Audio/Footsteps/Dirt/Dirt 1.wav");//(AudioStream) result;
-            GD.Print($"Stream = null {Stream == null}");
-            GD.Print($"MaxDistance {MaxDistance}");
-
-            if (!Playing)
-			{
-                Play();
-            }
-			
-            //result
-
-
-        };
-		
+		var resourceService = _parent.Entity.Services.ResourceService;
+		if( (resourceService.Assets.TryGetValue(name, out Resource result)
+		|| resourceService.LoadResource(name).TryGetValue(name, out result)) ) {
+			if( result is AudioStream stream ) {
+				Stream = stream;
+				Play();
+			}
+			else {
+				GD.Print($"Resource '{name}' is not an audio stream.");
+			}
+		}
+		else {
+			GD.Print($"Failed to load resource '{name}'");
+		}
 	}
 }

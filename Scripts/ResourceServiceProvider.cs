@@ -10,7 +10,7 @@ public class ResourceServiceProvider : Node, IResourceServiceProvider
     {
         //get audio bank
         var audioBank = GetNode<AudioBank>(nameof(AudioBank));
-        Default.Add(audioBank.DirtFootsteps.Variations.Select(v =>
+        Default.AddRange(audioBank.DirtFootsteps.Select(v =>
         new KeyValuePair<string, Resource>(v.ResourcePath, v)));
 
         //Default.Add(audioBank.ConcreteFootsteps.Variations.Select(v =>

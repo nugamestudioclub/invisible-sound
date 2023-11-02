@@ -6,20 +6,23 @@ using System.Collections.Generic;
 public class ResourceService : IResourceService {
 
 	private readonly IBlackboard assets = new Blackboard();
-    public IBlackboard LoadScene(string resourceId) {
+
+	public IReadOnlyBlackboard Assets => assets;
+
+	public void AddRange<T>(IEnumerable<KeyValuePair<string, T>> data) {
+		foreach( var pair in data )
+			assets.SetValue(pair.Key, pair.Value);
+	}
+
+	public IBlackboard LoadScene(string resourceId) {
 		var data = new Blackboard();
 		data.SetValue("scene", GD.Load<PackedScene>($"res://Scenes/{resourceId}.tscn"));
 		return data;
 	}
 
-	public void Add<T>(IEnumerable<KeyValuePair<string , T>> data) 
-	{
-		foreach (var pair in data)
-		{
-			assets.SetValue(pair.Key, pair.Value);
-			GD.Print($"Added {pair.Key}, value type {pair.Value.GetType()}");
-		}
+	public IBlackboard LoadResource(string path) {
+		var data = new Blackboard();
+		data.SetValue("resource", GD.Load<Resource>(path));
+		return data;
 	}
-
-	public IReadOnlyBlackboard Assets => assets;
 }
