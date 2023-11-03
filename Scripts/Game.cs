@@ -10,7 +10,7 @@ public class Game : IGame {
 
 	private readonly Dictionary<string, Entity> _entities = new Dictionary<string, Entity>();
 
-	public IBlackboard GlobalData = new Blackboard();
+	public IBlackboard GlobalData { get; } = new Blackboard();
 	public Game(IServiceBroker serviceProviders) {
 		ServiceProviders = serviceProviders;
 		/*

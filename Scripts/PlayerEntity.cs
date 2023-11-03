@@ -1,22 +1,10 @@
 using Collections;
 using Godot;
+using System;
 
 public class PlayerEntity : SceneServiceNode {
 
-	public bool HasVisualizer { get; private set; }
-    public bool HasGas { get; private set; }
-
-    public bool HasKey { get; private set; }
-
-    [Export]
-	private float _maxBatteryLife;
-	public float MaxBatteryLife => _maxBatteryLife;
-
-    [Export]
-    private float _batteryStep;
-    public float BatteryStep => _batteryStep;
-
-    public float CurrentBatteryLife { get; private set; }
+	public bool VizualizerActive { get; private set; }
 
     [Export]
 	private float _footstepSeconds = 0.5f;
@@ -56,61 +44,80 @@ public class PlayerEntity : SceneServiceNode {
 		OnCollision(new CollisionEventArgs(this, player, area, new Blackboard()));
 	}
 
-	public void Collect(ConsumableEntity consumable)
-	{
-		//for UI updating, just get node and set it to visible/not visible
-		switch(consumable.ConsumableType)
-		{
-			case ConsumableType.None:
-				break;
-			case ConsumableType.Key:
-				HasKey = true;
-				break;
-            case ConsumableType.Gas:
-				HasGas = true;
-                break;
-            case ConsumableType.Visualizer:
-				HasVisualizer = true;
-                break;
-            case ConsumableType.Battery:
-				CurrentBatteryLife = System.Math.Min(BatteryStep + CurrentBatteryLife, MaxBatteryLife);
-				//update battery level in UI
-
-
-                break;
-        }
-	}
-
-    public void Use(ConsumableEntity consumable)
-	{
-        switch (consumable.ConsumableType)
-        {
-            case ConsumableType.None:
-                break;
-            case ConsumableType.Key:
-				//make key ui invisible
-                break;
-            case ConsumableType.Gas:
-				//make gas ui invisible
-				//Entity.Game.GetEntityByName();
-                break;
-        }
-    }
-
-
     public void _Player_footstep() {
 		if( !HasFootstepStarted )
 			StartFootstep();
 	}
+	private float lastTick;
+	[Export]
+	private float tickInterval = .5f;
+	private float currentTime = 0;
 
 	public override void _PhysicsProcess(float delta) {
+		currentTime += delta;
 		base._PhysicsProcess(delta);
 		if( HasFootstepStarted )
 			UpdateFootstep(delta);
+		if (VizualizerActive && currentTime - lastTick > tickInterval)
+		{
+			lastTick = currentTime;
+            if (Entity.Game.GlobalData.TryGetValue("currentBatteryLife", out float batteryLife))
+            {
+				if (batteryLife < 0)
+				{
+                    UpdateMonVisualizer(false);
+                }
+				else
+				{
+					
+					Entity.Game.GlobalData.SetValue("currentBatteryLife", batteryLife - 1);
+					var UI = Entity.Game.GetEntityByName("UIEntity");
+					if (UI.Services.SceneService is UIEntity uiScene)
+					{
+						float percentLife = (batteryLife - 1) / Entity.Game.GlobalData.GetValue<float>("maxBatteryLife");
+						uiScene.CurrentVisualizerProgress = percentLife * 100;
+					}
+				}
+            }
+        }
 
 	}
 
-	private void StartFootstep() {
+	private void UpdateMonVisualizer(bool active)
+	{
+        VizualizerActive = active;
+        if (Entity.Game.GetEntityByName("MonsterEntity").Services.SceneService is MonsterEntity monster)
+        {
+            monster.Vizualized = VizualizerActive;
+
+        };
+    }
+
+    public override void _Input(InputEvent e)
+    {
+        base._Input(e);
+        if (e is InputEventKey k && k.IsPressed())
+        {
+			if (k.Scancode == (int)KeyList.Q && VizualizerActive)
+			{
+				UpdateMonVisualizer(false);
+            }
+			else if (k.Scancode == (int) KeyList.Q)
+			{
+				if (Entity.Game.GlobalData.TryGetValue("currentBatteryLife", out float batteryLife )) {
+					if (batteryLife > 0) {
+                        UpdateMonVisualizer(true);
+
+
+                    }
+				}
+
+            }
+
+        }
+    }
+
+    private void StartFootstep() {
 		var material = Entity.Services.SceneService.GetMaterialAt(ScenePosition);
 		var materialName = SceneServiceProvider.GetName(material);
 		// GD.Print(materialName);

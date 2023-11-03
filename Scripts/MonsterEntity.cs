@@ -2,6 +2,7 @@
 
 public class MonsterEntity : SceneServiceNode {
 	private KinematicBody2D _kinematicBody;
+	private CanvasItem visualizerParticle;
 
 	public override System.Numerics.Vector3 ScenePosition =>
 		new System.Numerics.Vector3(
@@ -17,9 +18,18 @@ public class MonsterEntity : SceneServiceNode {
 			0
 		);
 
+	public bool Vizualized
+	{
+		get => visualizerParticle.Visible;
+		set => visualizerParticle.Visible = value;
+
+    }
+
 	public override void _Ready() {
 		_kinematicBody = GetNode<KinematicBody2D>("Monster");
-	}
+        visualizerParticle= GetNode<CanvasItem>("Monster/VisualizerParticles");
+		Vizualized = false;
+    }
 
 
 	public override void Start() {
