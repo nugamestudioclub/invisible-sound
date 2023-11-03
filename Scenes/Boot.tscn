@@ -1,15 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/SceneServiceProvider.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/AudioBank.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/ResourceServiceProvider.cs" type="Script" id=3]
-[ext_resource path="res://Scripts/AudioBalance.cs" type="Script" id=4]
-[ext_resource path="res://Audio/Track Balance/Interactable.tres" type="Resource" id=5]
-[ext_resource path="res://Audio/Track Balance/Music.tres" type="Resource" id=6]
-[ext_resource path="res://Audio/Track Balance/Ambient.tres" type="Resource" id=7]
-[ext_resource path="res://Audio/Track Balance/Danger.tres" type="Resource" id=8]
-[ext_resource path="res://Audio/Track Balance/Footstep.tres" type="Resource" id=9]
-[ext_resource path="res://Audio/Track Balance/Default.tres" type="Resource" id=10]
+[ext_resource path="res://Scenes/Audio/AudioBalance.tscn" type="PackedScene" id=4]
 
 [node name="Boot" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,12 +13,4 @@ script = ExtResource( 3 )
 
 [node name="AudioBank" parent="Resources" instance=ExtResource( 2 )]
 
-[node name="AudioBalance" type="Node" parent="."]
-script = ExtResource( 4 )
-_trackDefault = ExtResource( 10 )
-_trackMusic = ExtResource( 6 )
-_trackAmbient = ExtResource( 7 )
-_trackFootstep = ExtResource( 9 )
-_trackInteractable = ExtResource( 5 )
-_trackDanger = ExtResource( 8 )
-_dangerDistance = [ 1e+06, 1000.0, 10.0 ]
+[node name="AudioBalance" parent="." instance=ExtResource( 4 )]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/AudioBalance.cs" type="Script" id=1]
+[ext_resource path="res://Audio/Track Balance/Danger.tres" type="Resource" id=2]
+[ext_resource path="res://Audio/Track Balance/Ambient.tres" type="Resource" id=3]
+[ext_resource path="res://Audio/Track Balance/Default.tres" type="Resource" id=4]
+[ext_resource path="res://Audio/Track Balance/Footstep.tres" type="Resource" id=5]
+[ext_resource path="res://Audio/Track Balance/Interactable.tres" type="Resource" id=6]
+[ext_resource path="res://Audio/Track Balance/Music.tres" type="Resource" id=7]
+
+[node name="AudioBalance" type="Node"]
+script = ExtResource( 1 )
+_trackDefault = ExtResource( 4 )
+_trackMusic = ExtResource( 7 )
+_trackAmbient = ExtResource( 3 )
+_trackFootstep = ExtResource( 5 )
+_trackInteractable = ExtResource( 6 )
+_trackDanger = ExtResource( 2 )
+_dangerDistance = [ 1e+06, 1000.0, 10.0 ]
