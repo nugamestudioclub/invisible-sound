@@ -50,6 +50,10 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		//GD.Print("Finished");
 	}
 
+	public void Start() {
+
+	}
+
 	public override void _Process(float delta) {
 		base._Process(delta);
 		if( !started ) {
@@ -144,6 +148,7 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 				sceneService.Collision += SceneService_Collision;
 				GD.Print("scene requesting creation of entity...");
 				game.CreateEntity(sceneService.Type, sceneService);
+				sceneService.Start();
 			}
 		}
 	}

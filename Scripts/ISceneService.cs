@@ -11,4 +11,5 @@ public interface ISceneService {
 
 	void Alert(System.Numerics.Vector2 position);
 	WalkmeshMaterial GetMaterialAt(System.Numerics.Vector3 position);
+	void Start();
 }

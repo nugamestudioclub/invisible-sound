@@ -7,7 +7,7 @@ export(String, "MoveOnPath", "FollowNode", "ChargeNode") var default_state
 onready var state_machine = $StateMachine
 
 export var path_follow : NodePath
-onready var path_follow_node : PathFollow2D = get_node(path_follow) as PathFollow2D
+onready var path_follow_node : PathFollow2D = get_tree().get_nodes_in_group("monster_path")[0].get_node("PathFollow2D") as PathFollow2D
 
 export var speed : int
 export var overcharge_dist : float

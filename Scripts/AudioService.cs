@@ -28,9 +28,29 @@ public class AudioService : IAudioService {
 		}
 	}
 
+	public void PlayLooping(string name, int track, ISceneService parent) {
+		PlayLooping(name, track, parent, Vector3.Zero);
+	}
+
+	public void PlayLooping(string name, int track, ISceneService parent, Vector3 offset) {
+		var player = _provider.Connect(track);
+		player.Parent = parent;
+		player.Position = parent.ScenePosition + offset;
+		player.PlayLooping(name);
+		Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+	}
+
 	public void PlayOneShot(string name, int track, ISceneService parent) {
 		PlayOneShot(name, track, parent, Vector3.Zero);
 	}
+
+	public void PlayLooping(string name, int track, Vector3 position) {
+		var player = _provider.Connect(track);
+		player.Parent = _root;
+		player.Position = position;
+		player.PlayLooping(name);
+	}
+
 
 	public void PlayOneShot(string name, int track, ISceneService parent, Vector3 offset) {
 		var player = _provider.Connect(track);

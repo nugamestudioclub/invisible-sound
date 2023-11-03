@@ -35,4 +35,6 @@ public class SceneServiceNode : Node2D, ISceneService {
 			? scene.GetMaterialAt(position)
 			: WalkmeshMaterial.None;
 	}
+
+	public virtual void Start() { }
 }

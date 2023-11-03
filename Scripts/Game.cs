@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Collections;
+using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -47,6 +48,17 @@ public class Game : IGame {
 			HandleAlarmCollision(collision.Item1);
 			HandleAlarmCollision(collision.Item2);
 		}
+		/*
+		var player = GetEntityByName("PlayerEntity");
+		var monster = GetEntityByName("MonsterEntity");
+		float distance = System.Numerics.Vector3.Distance(
+			player.Services.SceneService.ScenePosition,
+			monster.Services.SceneService.ScenePosition
+		);
+		var data = new Blackboard();
+		data.SetValue("danger_distance", distance);
+		ServiceProviders.Audio.Update(data);
+		*/
 	}
 
 	private bool HandleAlarmCollision(CollisionData collisionData) {

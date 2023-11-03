@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Inside/PoliceStationInterior.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Entities/PlayerEntity.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Entities/AlarmEntity.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Monster.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Entities/MonsterEntity.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/GameManager.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/AudioVisualizerManager.tscn" type="PackedScene" id=7]
 [ext_resource path="res://MonsterPath.tscn" type="PackedScene" id=8]
@@ -21,8 +21,7 @@ position = Vector2( 176, 265 )
 
 [node name="Alarm" parent="Boot" instance=ExtResource( 4 )]
 
-[node name="Monster" parent="Boot" instance=ExtResource( 5 )]
-default_state = "MoveOnPath"
+[node name="MonsterEntity" parent="Boot" instance=ExtResource( 5 )]
 
 [node name="MonsterPath" parent="Boot" instance=ExtResource( 8 )]
 

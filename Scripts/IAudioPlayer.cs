@@ -10,5 +10,6 @@ public interface IAudioPlayer {
 	float Attenuation { get; set; }
 	ISceneService Parent { get; set; }
 	Vector3 Position { get; set; }
+	void PlayLooping(string name);
 	void PlayOneShot(string name);
 }

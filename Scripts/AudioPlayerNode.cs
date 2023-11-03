@@ -43,6 +43,17 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 		set => Position = new Vector2(value.X, value.Y);
 	}
 
+	public void PlayLooping(string name) {
+		var resourceService = _parent.Entity.Services.ResourceService;
+		if( (resourceService.Assets.TryGetValue(name, out Resource result)
+		|| resourceService.LoadResource(name).TryGetValue(name, out result)) ) {
+			if( result is AudioStream stream ) {
+				Stream = stream;
+				Play();
+			}
+		}
+	}
+
 	public void PlayOneShot(string name) {
 		var resourceService = _parent.Entity.Services.ResourceService;
 		if( (resourceService.Assets.TryGetValue(name, out Resource result)
