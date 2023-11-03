@@ -4,7 +4,7 @@
 [ext_resource path="res://Audio/Monster/Creature kill 1.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scripts/ResourceList.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/Boot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/PlayerEntity.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Entities/PlayerEntity.tscn" type="PackedScene" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Walkmesh.cs" type="Script" id=7]
 [ext_resource path="res://Audio/SFX/gate.wav" type="AudioStream" id=8]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Audio/SFX/Door.wav" type="AudioStream" id=13]
 [ext_resource path="res://Audio/SFX/Books.wav" type="AudioStream" id=14]
 [ext_resource path="res://Audio/SFX/Police Alarm.wav" type="AudioStream" id=15]
+
 
 [node name="AudioTesting" type="Node2D"]
 script = ExtResource( 1 )

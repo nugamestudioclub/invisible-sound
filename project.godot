@@ -69,12 +69,17 @@ _global_script_class_icons={
 [application]
 
 config/name="Invisible-sound"
-run/main_scene="res://Scenes/TestScenes/JoshGeneralTesting.tscn"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 ResourceManager="*res://Scripts/ResourceManager.gd"
+
+[display]
+
+window/size/width=640
+window/size/height=360
 
 [editor]
 

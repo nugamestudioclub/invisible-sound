@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inner security room.png-59e230d6b57a1db75b281a7c3effe82c.stex"
+path="res://.import/visualizer pickup.png-f2c322d3dd5d0fef649ef45985ff8c5c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/inner security room.png"
-dest_files=[ "res://.import/inner security room.png-59e230d6b57a1db75b281a7c3effe82c.stex" ]
+source_file="res://Sprites/Visualizer/visualizer pickup.png"
+dest_files=[ "res://.import/visualizer pickup.png-f2c322d3dd5d0fef649ef45985ff8c5c.stex" ]
 
 [params]
 

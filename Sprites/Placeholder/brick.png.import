@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Inner store.png-2184b4ec5c4c4de234469aeb8a7c0358.stex"
+path="res://.import/brick.png-c4b513ae17039af3859595112301151d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Inner store.png"
-dest_files=[ "res://.import/Inner store.png-2184b4ec5c4c4de234469aeb8a7c0358.stex" ]
+source_file="res://Sprites/Placeholder/brick.png"
+dest_files=[ "res://.import/brick.png-c4b513ae17039af3859595112301151d.stex" ]
 
 [params]
 

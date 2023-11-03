@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Consumable.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Visualizer/visualizer pickup.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/ConsumableEntity.cs" type="Script" id=3]
+[ext_resource path="res://Scenes/GraphicsService.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=5]
+
+[node name="VisualizerEntity" type="Node2D"]
+script = ExtResource( 3 )
+graphicsServicePath = NodePath("Graphics")
+_consumableType = 3
+
+[node name="VisualizerPickup" type="Area2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="VisualizerPickup"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisualizerPickup"]
+position = Vector2( 0, 30 )
+shape = SubResource( 5 )
+
+[node name="Graphics" parent="." instance=ExtResource( 4 )]

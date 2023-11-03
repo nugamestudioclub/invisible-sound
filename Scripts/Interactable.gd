@@ -8,6 +8,7 @@ class_name Interactable
 
 signal in_range_of(interacting)
 signal out_of_range_of(interacting)
+signal activate()
 
 export var interact_priority : int
 
@@ -18,7 +19,7 @@ func _ready():
 	self.connect("body_exited", self, "_on_body_exited")
 
 func _interact(_player : PhysicsBody2D):
-	pass
+	emit_signal("activate")
 
 func _on_body_entered(body : Node):
 	if body.is_in_group("Player"):
