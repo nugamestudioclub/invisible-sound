@@ -39,7 +39,7 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		var resourceServiceProvider = GetNode<ResourceServiceProvider>("Resources");
 		var graphicsServiceProvider = new GraphicsServiceProvider();
 		var audioBalance = GetNode<AudioBalance>("AudioBalance");
-		var audioServiceProvider = new AudioServiceProvider(audioBalance, resourceServiceProvider.Default, this);
+		var audioServiceProvider = new AudioServiceProvider(game, audioBalance, resourceServiceProvider.Default, this);
 		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
 	}

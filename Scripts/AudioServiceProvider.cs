@@ -7,6 +7,7 @@ using System.Numerics;
 public class AudioServiceProvider : IAudioServiceProvider {
 	public static readonly string FootstepPath = "res://Audio/Footsteps";
 
+	private readonly Game _game;
 	private readonly HashSet<IAudioPlayer> _players = new HashSet<IAudioPlayer>();
 	private readonly Queue<IAudioPlayer> _queue = new Queue<IAudioPlayer>();
 	private readonly IAudioService _default;
@@ -17,9 +18,11 @@ public class AudioServiceProvider : IAudioServiceProvider {
 
 	public IAudioService Default => _default;
 
-	public AudioServiceProvider(AudioBalance audioBalance, IResourceService resourceService, ISceneService root = null) {
+	public AudioServiceProvider(Game game, AudioBalance audioBalance, IResourceService resourceService, ISceneService root = null) {
+		Exceptions.ArgumentNull.ThrowIfNull(game, nameof(game));
 		Exceptions.ArgumentNull.ThrowIfNull(audioBalance, nameof(audioBalance));
 		Exceptions.ArgumentNull.ThrowIfNull(resourceService, nameof(resourceService));
+		_game = game;
 		_audioBalance = audioBalance;
 		_resourceService = resourceService;
 		_default = new AudioService(this, new Blackboard(), root);
@@ -63,13 +66,16 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	}
 
 	public void Update(IReadOnlyBlackboard settings) {
-		bool dangerDirty = settings.TryGetValue<float>("danger_distance", out var distance)
-			&& distance != _dangerDistance;
-		_dangerDistance = distance;
-		//GD.Print($"update audio dist: {distance}");
-		foreach( var player in _players )
-			if( dangerDirty )
-				HandleDangerDistance(player, _dangerDistance);
+		float distance = settings.GetValueOrDefault("danger_distance", -1f);
+		var location = settings.GetValueOrDefault("location", Location.None);
+		var exteriorMusic = (IAudioPlayer)_game.GetEntityByName("ExteriorMusic");
+		var interiorMusic1 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic1");
+		var interiorMusic2 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic2");
+		var interiorMusic3 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic3");
+		if( exteriorMusic != null )
+			HandleExteriorMusic(exteriorMusic, location);
+		if( interiorMusic1 != null && interiorMusic2 != null && interiorMusic3 != null )
+			HandleInteriorMusic(interiorMusic1, interiorMusic2, interiorMusic3, distance, location);
 	}
 
 	private void Balance(IAudioPlayer player) {
@@ -79,13 +85,11 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		player.Attenuation = trackBalance.Attenuation;
 	}
 
-	private int DetermineDangerLevel(IReadOnlyBlackboard settings) {
-		/*
+	private int DetermineDangerLevel(float distance) {
 		var distances = _audioBalance.DangerDistance;
 		for( int i = 1; i < distances.Count; ++i )
 			if( distance <= distances[i] )
 				return i;
-		*/
 		return 0;
 	}
 
@@ -129,5 +133,34 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	private void AudioPlayer_Finished(object sender, EventArgs e) {
 		if( sender is IAudioPlayer player )
 			Disconnect(player);
+	}
+	
+	private void HandleInteriorMusic(IAudioPlayer interiorMusic1, IAudioPlayer interiorMusic2, IAudioPlayer interiorMusic3, float distance, Location location) {
+		if( location == Location.PoliceStation || location == Location.Store ) {
+			if( !interiorMusic1.Playing )
+				interiorMusic1.Play();
+			if( distance >= 0 ) {
+				int dangerLevel = DetermineDangerLevel(distance);
+				if( dangerLevel > 1 && !interiorMusic2.Playing )
+					interiorMusic2.Play();
+				else
+					interiorMusic2.Stop();
+				if( dangerLevel > 2 && !interiorMusic3.Playing )
+					interiorMusic3.Play();
+				else interiorMusic3.Stop();
+			}
+		}
+		else {
+			interiorMusic1.Stop();
+			interiorMusic2.Stop();
+			interiorMusic3.Stop();
+		}
+	}
+
+	private void HandleExteriorMusic(IAudioPlayer exteriorMusic, Location location) {
+		if( location == Location.Exterior && !exteriorMusic.Playing )
+			exteriorMusic.Play();
+		else
+			exteriorMusic.Stop();
 	}
 }

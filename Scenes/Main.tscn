@@ -136,13 +136,13 @@ teleport_player_to = NodePath("PlayerPos")
 teleport_monster_to = NodePath("MonsterPos")
 
 [node name="PlayerPos" type="Position2D" parent="Boot/Teleporters/->Police"]
-position = Vector2( 2525, 691 )
+position = Vector2( 2514, 681 )
 
 [node name="MonsterPos" type="Position2D" parent="Boot/Teleporters/->Police"]
 position = Vector2( 2431, 591 )
 
 [node name="<-Police" parent="Boot/Teleporters" instance=ExtResource( 26 )]
-position = Vector2( 3257, 448 )
+position = Vector2( 3257, 452 )
 teleport_player_to = NodePath("PlayerPos")
 teleport_monster_to = NodePath("MonsterPos")
 
