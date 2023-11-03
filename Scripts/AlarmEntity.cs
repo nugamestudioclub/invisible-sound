@@ -10,5 +10,6 @@ public class AlarmEntity : SceneServiceNode {
 
 	public override void Alert(System.Numerics.Vector2 position) {
 		_alarmManager.Call("_on_activate_alarm", new Vector2(position.X, position.Y));
+		Entity.Services.AudioService.PlayOneShot("res://Audio/SFX/Alarm.wav", (int)AudioTrack.Interactable, this);
 	}
 }

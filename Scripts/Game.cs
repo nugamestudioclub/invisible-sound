@@ -103,6 +103,7 @@ public class Game : IGame {
 				var x = collisionData.Args.GetValue<float>("x");
 				var y = collisionData.Args.GetValue<float>("y");
 				alarm.Services.SceneService.Alert(new System.Numerics.Vector2(x, y));
+				alarm.Services.AudioService.PlayOneShot("res://Audio/SFX/Alarm.wav", (int)AudioTrack.Interactable, alarm.Services.SceneService);
 				// GD.Print($"\tALARM @ ({x,2},{y,2})");
 				return true;
 			}
