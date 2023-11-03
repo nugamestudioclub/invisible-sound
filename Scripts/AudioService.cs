@@ -22,51 +22,56 @@ public class AudioService : IAudioService {
 		*/
 	}
 
-	public void PlayFootstep(string material) {
+	public IAudioPlayer PlayFootstep(string material) {
 		if( _footsteps.TryGetValue(material, out var rr) ) {
 			string clip = rr.Get();
 			// Godot.GD.Print($"Play footstep '{clip}'");
-			PlayOneShot(clip, (int)AudioTrack.Footstep, _root);
+			return PlayOneShot(clip, (int)AudioTrack.Footstep, _root);
 		}
+		return null;
 	}
 
-	public void PlayLooping(string name, int track, ISceneService parent) {
-		PlayLooping(name, track, parent, Vector3.Zero);
+	public IAudioPlayer PlayLooping(string name, int track, ISceneService parent) {
+		return PlayLooping(name, track, parent, Vector3.Zero);
 	}
 
-	public void PlayLooping(string name, int track, ISceneService parent, Vector3 offset) {
+	public IAudioPlayer PlayLooping(string name, int track, ISceneService parent, Vector3 offset) {
 		var player = _provider.Connect(track);
 		player.Parent = parent;
 		player.Position = parent.ScenePosition + offset;
 		player.PlayLooping(name);
 		// Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+		return player;
 	}
 
-	public void PlayOneShot(string name, int track, ISceneService parent) {
-		PlayOneShot(name, track, parent, Vector3.Zero);
+	public IAudioPlayer PlayOneShot(string name, int track, ISceneService parent) {
+		return PlayOneShot(name, track, parent, Vector3.Zero);
 	}
 
-	public void PlayLooping(string name, int track, Vector3 position) {
+	public IAudioPlayer PlayLooping(string name, int track, Vector3 position) {
 		var player = _provider.Connect(track);
 		player.Parent = _root;
 		player.Position = position;
 		player.PlayLooping(name);
+		return player;
 	}
 
 
-	public void PlayOneShot(string name, int track, ISceneService parent, Vector3 offset) {
+	public IAudioPlayer PlayOneShot(string name, int track, ISceneService parent, Vector3 offset) {
 		var player = _provider.Connect(track);
 		player.Parent = parent;
 		player.Position = parent.ScenePosition + offset;
 		player.PlayOneShot(name);
 		// Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+		return player;
 	}
 
-	public void PlayOneShot(string name, int track, Vector3 position) {
+	public IAudioPlayer PlayOneShot(string name, int track, Vector3 position) {
 		var player = _provider.Connect(track);
 		player.Parent = _root;
 		player.Position = position;
 		player.PlayOneShot(name);
+		return player;
 	}
 
 	private static string GetFootstepMaterial(string path) {

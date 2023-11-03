@@ -7,7 +7,7 @@ using System.Numerics;
 public class AudioServiceProvider : IAudioServiceProvider {
 	public static readonly string FootstepPath = "res://Audio/Footsteps";
 
-	private readonly Game _game;
+	public Game Game { get; set; }
 	private readonly HashSet<IAudioPlayer> _players = new HashSet<IAudioPlayer>();
 	private readonly Queue<IAudioPlayer> _queue = new Queue<IAudioPlayer>();
 	private readonly IAudioService _default;
@@ -18,11 +18,9 @@ public class AudioServiceProvider : IAudioServiceProvider {
 
 	public IAudioService Default => _default;
 
-	public AudioServiceProvider(Game game, AudioBalance audioBalance, IResourceService resourceService, ISceneService root = null) {
-		Exceptions.ArgumentNull.ThrowIfNull(game, nameof(game));
+	public AudioServiceProvider(AudioBalance audioBalance, IResourceService resourceService, ISceneService root = null) {
 		Exceptions.ArgumentNull.ThrowIfNull(audioBalance, nameof(audioBalance));
 		Exceptions.ArgumentNull.ThrowIfNull(resourceService, nameof(resourceService));
-		_game = game;
 		_audioBalance = audioBalance;
 		_resourceService = resourceService;
 		_default = new AudioService(this, new Blackboard(), root);
@@ -68,10 +66,10 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	public void Update(IReadOnlyBlackboard settings) {
 		float distance = settings.GetValueOrDefault("danger_distance", -1f);
 		var location = settings.GetValueOrDefault("location", Location.None);
-		var exteriorMusic = (IAudioPlayer)_game.GetEntityByName("ExteriorMusic");
-		var interiorMusic1 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic1");
-		var interiorMusic2 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic2");
-		var interiorMusic3 = (IAudioPlayer)_game.GetEntityByName("InteriorMusic3");
+		var exteriorMusic = Game.GetEntityByName("ExteriorMusic")?.Services.SceneService as MusicPlayer;
+		var interiorMusic1 = Game.GetEntityByName("InteriorMusic1")?.Services.SceneService as MusicPlayer;
+		var interiorMusic2 = Game.GetEntityByName("InteriorMusic2")?.Services.SceneService as MusicPlayer;
+		var interiorMusic3 = Game.GetEntityByName("InteriorMusic3")?.Services.SceneService as MusicPlayer;
 		if( exteriorMusic != null )
 			HandleExteriorMusic(exteriorMusic, location);
 		if( interiorMusic1 != null && interiorMusic2 != null && interiorMusic3 != null )
@@ -130,12 +128,7 @@ public class AudioServiceProvider : IAudioServiceProvider {
 			/ (_audioBalance.MaxDangerDistance - _audioBalance.MinDangerDistance);
 	}
 
-	private void AudioPlayer_Finished(object sender, EventArgs e) {
-		if( sender is IAudioPlayer player )
-			Disconnect(player);
-	}
-	
-	private void HandleInteriorMusic(IAudioPlayer interiorMusic1, IAudioPlayer interiorMusic2, IAudioPlayer interiorMusic3, float distance, Location location) {
+	private void HandleInteriorMusic(MusicPlayer interiorMusic1, MusicPlayer interiorMusic2, MusicPlayer interiorMusic3, float distance, Location location) {
 		if( location == Location.PoliceStation || location == Location.Store ) {
 			if( !interiorMusic1.Playing )
 				interiorMusic1.Play();
@@ -157,10 +150,15 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		}
 	}
 
-	private void HandleExteriorMusic(IAudioPlayer exteriorMusic, Location location) {
+	private void HandleExteriorMusic(MusicPlayer exteriorMusic, Location location) {
 		if( location == Location.Exterior && !exteriorMusic.Playing )
 			exteriorMusic.Play();
 		else
 			exteriorMusic.Stop();
 	}
+	private void AudioPlayer_Finished(object sender, EventArgs e) {
+		if( sender is IAudioPlayer player )
+			Disconnect(player);
+	}
+
 }
