@@ -153,7 +153,6 @@ public class Game : IGame {
 	}
 
 	private void HandleMessageLocation(IReadOnlyBlackboard blackboard) {
-		GD.Print("teleporting");
 		var currentLocation = GlobalData.GetValue<Location>("location");
 		var location = currentLocation == Location.Exterior
 			? Location.PoliceStation : Location.PoliceStation;
