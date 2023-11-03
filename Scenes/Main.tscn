@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scenes/Inside/GeneralStoreInterior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Outside/Generator.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://Scenes/Teleporter.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Audio/Music/Indoor Music/InvisibleSounds_Music_Indoor_Layer2.wav" type="AudioStream" id=27]
 [ext_resource path="res://Audio/Music/Indoor Music/InvisibleSounds_Music_Indoor_Layer1(Ambience).wav" type="AudioStream" id=28]
+[ext_resource path="res://Scripts/Gate.cs" type="Script" id=29]
 
 [node name="Main" type="Node2D"]
 
@@ -378,6 +379,7 @@ position = Vector2( 170, 22 )
 position = Vector2( 131, 22 )
 
 [node name="Gate" parent="Boot/Borders/SouthFence" instance=ExtResource( 4 )]
+script = ExtResource( 29 )
 
 [node name="LeftTreeWall" type="Node2D" parent="Boot/Borders"]
 
