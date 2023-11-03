@@ -22,9 +22,15 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		var data = new Blackboard();
 		if( type == EntityType.Character ) {
 			var footsteps = new HashSet<string>();
-			foreach( string name in _resourceService.Assets.Names )
-				if( name.StartsWith(FootstepPath) )
+			foreach( string name in _resourceService.Assets.Names ) {
+				if( name.StartsWith(FootstepPath) ) {
+					GD.Print($"adding '{name}'");
 					footsteps.Add(name);
+				}
+				else {
+					GD.Print($"skipping '{name}'");
+				}
+			}
 			data.SetValue("footsteps", footsteps);
 		}
 		return new AudioService(this, data, parent);

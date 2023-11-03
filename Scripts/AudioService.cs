@@ -13,13 +13,11 @@ public class AudioService : IAudioService {
 		_provider = provider;
 		_root = root;
 		_footsteps = GetFootstepRoundRobins(data);
-		/*
 		Godot.GD.Print(((Godot.Node)_root).Name);
 		foreach( string key in _footsteps.Keys ) {
 			Godot.GD.Print($"material: '{key}'");
 			Godot.GD.Print(string.Join("\n", _footsteps[key]));
 		}
-		*/
 	}
 
 	public void PlayFootstep(string material) {

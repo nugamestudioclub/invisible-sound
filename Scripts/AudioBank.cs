@@ -10,7 +10,7 @@ public class AudioBank : Node
     public override void _EnterTree()
     {
         DirtFootsteps = GetNode<ResourceList>("Footsteps/Dirt");
-        //ConcreteFootsteps = GetNode<Footsteps>("Footsteps/Concrete");
-        //GrassFootsteps = GetNode<Footsteps>("Footsteps/Grass");
+        ConcreteFootsteps = GetNode<ResourceList>("Footsteps/Concrete");
+        GrassFootsteps = GetNode<ResourceList>("Footsteps/Grass");
     }
 }

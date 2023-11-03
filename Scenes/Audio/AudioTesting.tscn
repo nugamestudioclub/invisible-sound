@@ -35,6 +35,8 @@ texture = ExtResource( 6 )
 [node name="PlayerEntity" parent="Boot" instance=ExtResource( 5 )]
 position = Vector2( 37, 77 )
 
-[node name="Concrete" type="Polygon2D" parent="Boot"]
+[node name="Concrete" type="Polygon2D" parent="Boot" groups=["walkmesh"]]
+position = Vector2( 41, 56 )
+polygon = PoolVector2Array( 158, 190, 90, 98, 79, -53, 142, -114, 218, -164, 298, -130, 325, -116, 366, 75 )
 script = ExtResource( 7 )
 <MaterialType>k__BackingField = 1
