@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class ResourceList : Node, IList<Resource>, IReadOnlyList<Resource>
 {
-    [Export]
-    private List<Resource> _items;
+	[Export]
+	private List<Resource> _items;
 
 	public Resource this[int index] {
 		get => _items[index];
