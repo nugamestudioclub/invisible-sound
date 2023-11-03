@@ -30,6 +30,10 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 
 	private readonly Dictionary<WalkmeshMaterial, List<Walkmesh>> _walkmeshes;
 
+
+	[Export]
+	private float _monsterRadius = 2.5f;
+
 	public SceneServiceProvider() {
 		_walkmeshes = CreateWalkmeshes();
 	}
@@ -81,6 +85,11 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		base._PhysicsProcess(delta);
 		game.UpdatePhysics(delta);
 		_pendingCollisions.Clear();
+		float distance = game.GlobalData.GetValueOrDefault("monsterDistance", (float)short.MaxValue);
+		if( distance <= _monsterRadius ) {
+			int health = game.GlobalData.GetValue<int>("health");
+			game.GlobalData.SetValue("health", health - 1);
+		}
 	}
 
 	public ISceneService Connect(EntityType type, int id, IReadOnlyBlackboard data) {
