@@ -1,5 +1,6 @@
 ﻿using Collections;
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public class AudioServiceProvider : IAudioServiceProvider {
@@ -40,6 +41,7 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		var player = (IAudioPlayer)_resourceService
 			.LoadScene("Audio/AudioPlayer").GetValue<PackedScene>("scene")
 			.Instance();
+		player.Finished += AudioPlayer_Finished;
 		player.Track = track;
 		// set volume
 		_players.Add(player);
@@ -51,5 +53,10 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		_queue.Enqueue(player);
 		if( player is Node node )
 			node.GetParent()?.RemoveChild(node);
+	}
+
+	private void AudioPlayer_Finished(object sender, EventArgs e) {
+		if( sender is IAudioPlayer player )
+			Disconnect(player);
 	}
 }

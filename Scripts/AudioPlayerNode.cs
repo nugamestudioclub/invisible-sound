@@ -1,7 +1,9 @@
 ﻿using Godot;
-using System.Xml.XPath;
+using System;
 
 public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
+	public event EventHandler Finished;
+
 	private ISceneService _parent;
 
 	float IAudioPlayer.Volume {
@@ -46,5 +48,13 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 		else {
 			GD.Print($"Failed to load resource '{name}'");
 		}
+	}
+
+	private void _AudioPlayer_Finished() {
+		OnFinished();
+	}
+
+	protected virtual void OnFinished() {
+		Finished?.Invoke(this, EventArgs.Empty);
 	}
 }

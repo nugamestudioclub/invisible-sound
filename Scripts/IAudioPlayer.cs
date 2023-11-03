@@ -1,6 +1,9 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 public interface IAudioPlayer {
+	event EventHandler Finished;
+
 	float Volume { get; set; }
 	int Track { get; set; }
 	ISceneService Parent { get; set; }
