@@ -37,7 +37,8 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		//attach service broker node to the root
 		var resourceServiceProvider = GetNode<ResourceServiceProvider>("Resources");
 		var graphicsServiceProvider = new GraphicsServiceProvider();
-		var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
+		var audioBalance = GetNode<AudioBalance>("AudioBalance");
+		var audioServiceProvider = new AudioServiceProvider(audioBalance, resourceServiceProvider.Default, this);
 		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
 	}

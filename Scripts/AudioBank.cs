@@ -1,9 +1,13 @@
 using Godot;
-using System;
+using System.Collections.Generic;
 
-public class AudioBank : Node
-{
-    public ResourceList DirtFootsteps { get; private set; }
+public class AudioBank : Node {
+    [Export]
+	private List<AudioBalance> _audioBalance;
+
+    public IList<AudioBalance> AudioBalance => _audioBalance;
+
+	public ResourceList DirtFootsteps { get; private set; }
     public ResourceList ConcreteFootsteps { get; private set; }
     public ResourceList GrassFootsteps { get; private set; }
 

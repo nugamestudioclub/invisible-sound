@@ -6,12 +6,22 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 
 	private ISceneService _parent;
 
-	float IAudioPlayer.Volume {
+	public int Track { get; set; }
+
+	float IAudioPlayer.VolumeDb {
 		get => VolumeDb;
 		set => VolumeDb = value;
 	}
 
-	public int Track { get; set; }
+	float IAudioPlayer.MaxDistance {
+		get => MaxDistance;
+		set => MaxDistance = value;
+	}
+
+	float IAudioPlayer.Attenuation {
+		get => Attenuation;
+		set => Attenuation = value;
+	}
 
 	public ISceneService Parent {
 		get => _parent;

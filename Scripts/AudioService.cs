@@ -24,7 +24,7 @@ public class AudioService : IAudioService {
 		if( _footsteps.TryGetValue(material, out var rr) ) {
 			string clip = rr.Get();
 			// Godot.GD.Print($"Play footstep '{clip}'");
-			PlayOneShot(clip, 0, _root);
+			PlayOneShot(clip, (int)AudioTrack.Footstep, _root);
 		}
 	}
 
