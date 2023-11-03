@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://Scenes/Inside/GeneralStoreInterior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Outside/Generator.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Outside/GasStation.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Outside/Gate.tscn" type="PackedScene" id=4]
@@ -11,6 +12,7 @@
 [ext_resource path="res://Scenes/Outside/SecurityRoom.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Resources/Tilesets/DirtTileset.tres" type="TileSet" id=11]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Inside/PoliceStationInterior.tscn" type="PackedScene" id=13]
 
 [node name="Main" type="Node2D"]
 
@@ -319,3 +321,9 @@ position = Vector2( -376, 240 )
 position = Vector2( -381, 320 )
 
 [node name="Player" parent="." instance=ExtResource( 12 )]
+
+[node name="GeneralStore" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2068, -411 )
+
+[node name="PoliceStation2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 2124, 387 )
