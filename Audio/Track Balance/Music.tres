@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-_volumeDb = 0.0
+_volumeDb = -10.0
 _maxDistance = 10000.0
-_attenuation = 0.001
+_attenuation = 0.0
