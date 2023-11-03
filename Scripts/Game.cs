@@ -139,7 +139,7 @@ public class Game : IGame {
                                     GlobalData.GetValue<float>("maxBatteryLife"));
 								GlobalData.SetValue("currentBatteryLife", currentBatteryLife);
 								float percentLife = currentBatteryLife / GlobalData.GetValue<float>("maxBatteryLife");				
-								uiScene.CurrentVisualizerProgress = percentLife;
+								uiScene.CurrentVisualizerProgress = percentLife * 100;
                                 break;
                         }
                     }
