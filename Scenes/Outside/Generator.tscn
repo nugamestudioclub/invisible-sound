@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/Buildings/generator.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Outside/Tree2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Outside/Tree1.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 85.5, 36.5 )
 
 [node name="Generator" type="Node2D"]
 
@@ -17,3 +20,9 @@ position = Vector2( 128, -62 )
 
 [node name="Tree3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 123, 81 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -4.5, -6.5 )
+shape = SubResource( 1 )
