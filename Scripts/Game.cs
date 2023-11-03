@@ -37,7 +37,8 @@ public class Game : IGame {
 		GlobalData.SetValue("currentBatteryLife", maxBatteryLife/2);
 		GlobalData.SetValue("batteryStep", 20f);
 		GlobalData.SetValue("location", Location.Exterior);
-
+		GlobalData.SetValue("monsterDistance", (float)short.MaxValue);
+		GlobalData.SetValue("health", 3);
 	}
 
 	public Entity CreateEntity(EntityType type, string resourceId) {
@@ -85,6 +86,7 @@ public class Game : IGame {
 			player.Services.SceneService.ScenePosition,
 			monster.Services.SceneService.ScenePosition
 		);
+			GlobalData.SetValue("monsterDistance", distance);
 			var data = new Blackboard();
 			data.SetValue("danger_distance", distance);
 			data.SetValue("location", GlobalData.GetValue<Location>("location"));
@@ -94,16 +96,18 @@ public class Game : IGame {
 
 	private bool HandleAlarmCollision(CollisionData collisionData) {
 		// GD.Print($"{nameof(Game)}.{nameof(HandleAlarmCollision)}");
-		if( collisionData.Args.TryGetValue<string>("source", out var name)
-			&& name.Equals("alarm", StringComparison.OrdinalIgnoreCase) ) {
-			var alarm = GetEntityByName("Alarm");
-			// GD.Print("\tfound alarm entity");
-			var x = collisionData.Args.GetValue<float>("x");
-			var y = collisionData.Args.GetValue<float>("y");
-			alarm.Services.SceneService.Alert(new System.Numerics.Vector2(x, y));
-			// GD.Print($"\tALARM @ ({x,2},{y,2})");
-			return true;
+		if( collisionData.Args.TryGetValue<string>("source", out var name) ) {
+			if( name.Equals("alarm", StringComparison.OrdinalIgnoreCase) ) {
+				var alarm = GetEntityByName("Alarm");
+				// GD.Print("\tfound alarm entity");
+				var x = collisionData.Args.GetValue<float>("x");
+				var y = collisionData.Args.GetValue<float>("y");
+				alarm.Services.SceneService.Alert(new System.Numerics.Vector2(x, y));
+				// GD.Print($"\tALARM @ ({x,2},{y,2})");
+				return true;
+			}
 		}
+
 		return false;
 	}
 
