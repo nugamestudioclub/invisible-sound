@@ -2,7 +2,23 @@ using Collections;
 using Godot;
 
 public class PlayerEntity : SceneServiceNode {
-	[Export]
+
+	public bool HasVisualizer { get; private set; }
+    public bool HasGas { get; private set; }
+
+    public bool HasKey { get; private set; }
+
+    [Export]
+	private float _maxBatteryLife;
+	public float MaxBatteryLife => _maxBatteryLife;
+
+    [Export]
+    private float _batteryStep;
+    public float BatteryStep => _batteryStep;
+
+    public float CurrentBatteryLife { get; private set; }
+
+    [Export]
 	private float _footstepSeconds = 0.5f;
 
 	private float _footstepElapsed = float.MinValue;
@@ -40,7 +56,49 @@ public class PlayerEntity : SceneServiceNode {
 		OnCollision(new CollisionEventArgs(this, player, area, new Blackboard()));
 	}
 
-	public void _Player_footstep() {
+	public void Collect(ConsumableEntity consumable)
+	{
+		//for UI updating, just get node and set it to visible/not visible
+		switch(consumable.ConsumableType)
+		{
+			case ConsumableType.None:
+				break;
+			case ConsumableType.Key:
+				HasKey = true;
+				break;
+            case ConsumableType.Gas:
+				HasGas = true;
+                break;
+            case ConsumableType.Visualizer:
+				HasVisualizer = true;
+                break;
+            case ConsumableType.Battery:
+				CurrentBatteryLife = System.Math.Min(BatteryStep + CurrentBatteryLife, MaxBatteryLife);
+				//update battery level in UI
+
+
+                break;
+        }
+	}
+
+    public void Use(ConsumableEntity consumable)
+	{
+        switch (consumable.ConsumableType)
+        {
+            case ConsumableType.None:
+                break;
+            case ConsumableType.Key:
+				//make key ui invisible
+                break;
+            case ConsumableType.Gas:
+				//make gas ui invisible
+				//Entity.Game.GetEntityByName();
+                break;
+        }
+    }
+
+
+    public void _Player_footstep() {
 		if( !HasFootstepStarted )
 			StartFootstep();
 	}

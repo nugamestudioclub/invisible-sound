@@ -11,4 +11,6 @@ public class ConsumableEntity : SceneServiceNode
     {
         //consume the type
     }
+
+
 }

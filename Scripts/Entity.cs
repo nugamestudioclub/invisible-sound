@@ -7,7 +7,7 @@ public class Entity {
 	public EntityType Type { get; }
 	public int Id { get; }
 	public string Name { get; }
-	protected IGame Game { get; }
+	public IGame Game { get; }
 	public IServicePackage Services { get; }
 
 	public Entity(IGame game, IServicePackage serivces, EntityType type, int id, string name) {

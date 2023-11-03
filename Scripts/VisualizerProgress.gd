@@ -11,4 +11,4 @@ func _process(delta):
 		square_texture.visible = false
 	else:
 		square_texture.visible = true
-	print(square_texture.visible)
+	# print(square_texture.visible)

@@ -1,3 +1,323 @@
-[gd_scene format=2]
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scenes/UI/VisualizerProgress.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Outside/Generator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Outside/GasStation.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Outside/Gate.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Outside/Fence.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Outside/Tree2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Outside/PoliceStation.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Outside/House.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Outside/Tree1.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Outside/SecurityRoom.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Resources/Tilesets/DirtTileset.tres" type="TileSet" id=11]
 
 [node name="Main" type="Node2D"]
+
+[node name="GasStation" parent="." instance=ExtResource( 3 )]
+position = Vector2( 134, -306 )
+
+[node name="Generator" parent="." instance=ExtResource( 2 )]
+position = Vector2( 601, 226 )
+
+[node name="SecurityRoom" parent="." instance=ExtResource( 10 )]
+position = Vector2( 179, 265 )
+
+[node name="PoliceStation" parent="." instance=ExtResource( 7 )]
+position = Vector2( 755, -295 )
+
+[node name="House" parent="." instance=ExtResource( 8 )]
+position = Vector2( -125, 90 )
+
+[node name="House2" parent="." instance=ExtResource( 8 )]
+position = Vector2( -185, -377 )
+
+[node name="House3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 454, -368 )
+
+[node name="NorthFence" type="Node2D" parent="."]
+position = Vector2( 317, -544 )
+
+[node name="Fence" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -95, 22 )
+
+[node name="Fence31" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -56, 22 )
+
+[node name="Fence32" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -17, 22 )
+
+[node name="Fence33" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 22, 22 )
+
+[node name="Fence34" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 61, 22 )
+
+[node name="Fence2" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -134, 22 )
+
+[node name="Fence3" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -173, 22 )
+
+[node name="Fence4" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -212, 22 )
+
+[node name="Fence5" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -251, 22 )
+
+[node name="Fence6" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -290, 22 )
+
+[node name="Fence7" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -329, 22 )
+
+[node name="Fence8" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -368, 22 )
+
+[node name="Fence9" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -407, 22 )
+
+[node name="Fence10" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -446, 22 )
+
+[node name="Fence11" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -485, 22 )
+
+[node name="Fence12" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -524, 22 )
+
+[node name="Fence13" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -563, 22 )
+
+[node name="Fence14" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -602, 22 )
+
+[node name="Fence15" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( -641, 22 )
+
+[node name="Fence16" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 100, 22 )
+
+[node name="Fence17" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 646, 22 )
+
+[node name="Fence18" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 607, 22 )
+
+[node name="Fence19" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 568, 22 )
+
+[node name="Fence20" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 529, 22 )
+
+[node name="Fence21" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 490, 22 )
+
+[node name="Fence22" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 451, 22 )
+
+[node name="Fence23" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 412, 22 )
+
+[node name="Fence24" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 373, 22 )
+
+[node name="Fence25" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 334, 22 )
+
+[node name="Fence26" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 295, 22 )
+
+[node name="Fence27" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 256, 22 )
+
+[node name="Fence28" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 217, 22 )
+
+[node name="Fence29" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 178, 22 )
+
+[node name="Fence30" parent="NorthFence" instance=ExtResource( 5 )]
+position = Vector2( 139, 22 )
+
+[node name="SouthFence" type="Node2D" parent="."]
+position = Vector2( 313, 348 )
+
+[node name="Leftside" type="Node2D" parent="SouthFence"]
+
+[node name="Fence" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -95, 22 )
+
+[node name="Fence2" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -134, 22 )
+
+[node name="Fence3" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -173, 22 )
+
+[node name="Fence4" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -212, 22 )
+
+[node name="Fence5" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -251, 22 )
+
+[node name="Fence6" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -290, 22 )
+
+[node name="Fence7" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -329, 22 )
+
+[node name="Fence8" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -368, 22 )
+
+[node name="Fence9" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -407, 22 )
+
+[node name="Fence10" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -446, 22 )
+
+[node name="Fence11" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -485, 22 )
+
+[node name="Fence12" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -524, 22 )
+
+[node name="Fence13" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -563, 22 )
+
+[node name="Fence14" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -602, 22 )
+
+[node name="Fence15" parent="SouthFence/Leftside" instance=ExtResource( 5 )]
+position = Vector2( -641, 22 )
+
+[node name="Rightside" type="Node2D" parent="SouthFence"]
+
+[node name="Fence" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 92, 22 )
+
+[node name="Fence16" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 638, 22 )
+
+[node name="Fence17" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 599, 22 )
+
+[node name="Fence18" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 560, 22 )
+
+[node name="Fence19" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 521, 22 )
+
+[node name="Fence20" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 482, 22 )
+
+[node name="Fence21" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 443, 22 )
+
+[node name="Fence22" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 404, 22 )
+
+[node name="Fence23" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 365, 22 )
+
+[node name="Fence24" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 326, 22 )
+
+[node name="Fence25" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 287, 22 )
+
+[node name="Fence26" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 248, 22 )
+
+[node name="Fence27" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 209, 22 )
+
+[node name="Fence28" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 170, 22 )
+
+[node name="Fence29" parent="SouthFence/Rightside" instance=ExtResource( 5 )]
+position = Vector2( 131, 22 )
+
+[node name="Gate" parent="SouthFence" instance=ExtResource( 4 )]
+
+[node name="UI" type="Control" parent="."]
+
+[node name="VisualizerProgress" parent="UI" instance=ExtResource( 1 )]
+
+[node name="LeftTreeWall" type="Node2D" parent="."]
+
+[node name="Tree11" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -348, -550 )
+
+[node name="Tree10" parent="LeftTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -368, -449 )
+
+[node name="Tree9" parent="LeftTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -335, -356 )
+
+[node name="Tree8" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -313, -278 )
+
+[node name="Tree7" parent="LeftTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -343, -177 )
+
+[node name="Tree6" parent="LeftTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -309, -92 )
+
+[node name="Tree5" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -334, -1 )
+
+[node name="Tree1" parent="LeftTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -379, 81 )
+
+[node name="Tree4" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -424, 170 )
+
+[node name="Tree3" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -376, 240 )
+
+[node name="Tree2" parent="LeftTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -360, 324 )
+
+[node name="RightTreeWall" type="Node2D" parent="."]
+position = Vector2( 1377, 12 )
+
+[node name="Tree10" parent="RightTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -370, -527 )
+
+[node name="Tree11" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -332, -459 )
+
+[node name="Tree8" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -306, -356 )
+
+[node name="Tree9" parent="RightTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -289, -247 )
+
+[node name="Tree7" parent="RightTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -343, -177 )
+
+[node name="Tree6" parent="RightTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -309, -92 )
+
+[node name="Tree5" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -334, -1 )
+
+[node name="Tree2" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -321, 96 )
+
+[node name="Tree4" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -379, 165 )
+
+[node name="Tree3" parent="RightTreeWall" instance=ExtResource( 9 )]
+position = Vector2( -376, 240 )
+
+[node name="Tree1" parent="RightTreeWall" instance=ExtResource( 6 )]
+position = Vector2( -381, 320 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 11 )
+cell_size = Vector2( 18, 18 )
+cell_quadrant_size = 18
+cell_custom_transform = Transform2D( 18, 0, 0, 18, 0, 0 )
+format = 1
+tile_data = PoolIntArray( -65510, 20, 0, -65509, 14, 0, 22, 20, 0, 23, 14, 0, 24, 20, 0, 25, 20, 0, 131091, 20, 0, 131092, 20, 0, 131093, 20, 0, 196626, 20, 0, 196627, 20, 0, 262160, 20, 0, 262161, 20, 0, 327695, 20, 0, 327696, 20, 0, 327705, 20, 0, 393239, 20, 0, 393240, 20, 0 )
