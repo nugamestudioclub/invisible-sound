@@ -16,4 +16,4 @@ _trackAmbient = ExtResource( 3 )
 _trackFootstep = ExtResource( 5 )
 _trackInteractable = ExtResource( 6 )
 _trackDanger = ExtResource( 2 )
-_dangerDistance = [ 1e+06, 1000.0, 10.0 ]
+_dangerDistance = [ 1e+06, 40.0, 10.0 ]
