@@ -9,5 +9,6 @@ script = ExtResource( 2 )
 graphicsServicePath = NodePath("Graphics")
 
 [node name="Monster" parent="." instance=ExtResource( 1 )]
+default_state = "MoveOnPath"
 
 [node name="Graphics" parent="." instance=ExtResource( 3 )]

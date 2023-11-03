@@ -2,12 +2,12 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 72, 72, 0, 0, 0, 0, 351, 68, 0, 0, 0, 0, 348, 335, 0, 0, 0, 0, 70, 338, 0, 0, 0, 0, 72, 72 )
+"points": PoolVector2Array( 0, 0, 0, 0, 600, -140, 0, 0, 0, 0, 603, 337, 87.651, 1.49831, -87.651, -1.49831, -173, 341, 0, 0, 0, 0, -208, -131, 0, 0, 0, 0, 589, -141 )
 }
 
 [node name="MonsterPath" type="Path2D" groups=["monster_path"]]
 curve = SubResource( 1 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2( 72, 72 )
-rotation = -0.0143353
+position = Vector2( 351, 68 )
+rotation = 1.58203

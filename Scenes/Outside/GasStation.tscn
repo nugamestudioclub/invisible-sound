@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/Buildings/Gas station/Overhead.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Buildings/Gas station/Gas StationNoOverhead.png" type="Texture" id=2]
@@ -8,6 +8,9 @@ extents = Vector2( 183, 100 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 65, 13 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 81, 50 )
 
 [node name="GasStation" type="Node2D"]
 
@@ -27,3 +30,7 @@ shape = SubResource( 1 )
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 135, 141 )
 shape = SubResource( 2 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 135, 78 )
+shape = SubResource( 3 )

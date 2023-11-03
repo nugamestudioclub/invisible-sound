@@ -18,7 +18,7 @@
 [ext_resource path="res://Scenes/Audio/MusicPlayer.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Audio/Music/Town Ambiance .wav" type="AudioStream" id=17]
 [ext_resource path="res://Audio/Music/Indoor Music/InvisibleSounds_Music_Indoor_Layer1(Ambience).wav" type="AudioStream" id=18]
-[ext_resource path="res://Scenes/Entities/VisualizerPickup.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scenes/Entities/AlarmEntity.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Scenes/GameManager.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/AlarmManager.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Entities/MonsterEntity.tscn" type="PackedScene" id=22]
@@ -85,7 +85,7 @@ position = Vector2( 601, 226 )
 [node name="SecurityRoom" parent="Boot/Buildings" instance=ExtResource( 10 )]
 position = Vector2( 179, 265 )
 
-[node name="PoliceStation" parent="Boot/Buildings" instance=ExtResource( 7 )]
+[node name="PoliceStationExterior" parent="Boot/Buildings" instance=ExtResource( 7 )]
 position = Vector2( 755, -295 )
 
 [node name="House" parent="Boot/Buildings" instance=ExtResource( 8 )]
@@ -100,17 +100,30 @@ position = Vector2( 454, -368 )
 [node name="GeneralStore" parent="Boot/Buildings" instance=ExtResource( 1 )]
 position = Vector2( 3282, -488 )
 
-[node name="PoliceStation2" parent="Boot/Buildings" instance=ExtResource( 13 )]
+[node name="PoliceStationInterior" parent="Boot/Buildings" instance=ExtResource( 13 )]
 position = Vector2( 3338, 310 )
+
+[node name="Alarm" parent="Boot/Buildings/PoliceStationInterior" instance=ExtResource( 19 )]
+position = Vector2( -3338, -310 )
 
 [node name="Pickups" type="Node" parent="Boot"]
 
 [node name="Batteries" type="Node" parent="Boot/Pickups"]
 
 [node name="BatteryEntity" parent="Boot/Pickups/Batteries" instance=ExtResource( 25 )]
-position = Vector2( 127, 47 )
+position = Vector2( 3413, 273 )
 
-[node name="VisualizerEntity" parent="Boot/Pickups" instance=ExtResource( 19 )]
+[node name="BatteryEntity2" parent="Boot/Pickups/Batteries" instance=ExtResource( 25 )]
+position = Vector2( 3119, -401 )
+
+[node name="BatteryEntity3" parent="Boot/Pickups/Batteries" instance=ExtResource( 25 )]
+position = Vector2( 762, 83 )
+
+[node name="BatteryEntity4" parent="Boot/Pickups/Batteries" instance=ExtResource( 25 )]
+position = Vector2( 373, -482 )
+
+[node name="BatteryEntity5" parent="Boot/Pickups/Batteries" instance=ExtResource( 25 )]
+position = Vector2( -346, 161 )
 
 [node name="Borders" type="Node" parent="Boot"]
 
@@ -400,12 +413,13 @@ _resource = ExtResource( 17 )
 [node name="Characters" type="Node" parent="Boot"]
 
 [node name="PlayerEntity" parent="Boot/Characters" instance=ExtResource( 12 )]
-position = Vector2( 347, 57 )
+position = Vector2( 314, 284 )
 
 [node name="MonsterEntity" parent="Boot/Characters" instance=ExtResource( 22 )]
 position = Vector2( -23, 205 )
 
 [node name="MonsterPath" parent="Boot/Characters" instance=ExtResource( 24 )]
+position = Vector2( 141, -194 )
 
 [node name="GodotUtils" parent="Boot" instance=ExtResource( 20 )]
 
