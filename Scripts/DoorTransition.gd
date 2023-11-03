@@ -18,6 +18,6 @@ func _ready():
 func _on_body_entered(body : Node):
 	if body.is_in_group("Player") and body is Node2D:
 		if player_pos:
-			emit_signal("teleport_player", player_pos.position)
+			emit_signal("teleport_player", player_pos.global_position)
 		if monster_pos:
-			emit_signal("teleport_monster", monster_pos.position)
+			emit_signal("teleport_monster", monster_pos.global_position)

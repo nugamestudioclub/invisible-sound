@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scenes/Inside/GeneralStoreInterior.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Outside/Generator.tscn" type="PackedScene" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Scenes/AudioVisualizerManager.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Scenes/MonsterPath.tscn" type="PackedScene" id=24]
 [ext_resource path="res://Scenes/Entities/BatteryPickup.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Scenes/Teleporter.tscn" type="PackedScene" id=26]
 
 [node name="Main" type="Node2D"]
 
@@ -105,6 +106,51 @@ position = Vector2( 3338, 310 )
 
 [node name="Alarm" parent="Boot/Buildings/PoliceStationInterior" instance=ExtResource( 19 )]
 position = Vector2( -3338, -310 )
+
+[node name="Teleporters" type="Node" parent="Boot"]
+
+[node name="->Store" parent="Boot/Teleporters" instance=ExtResource( 26 )]
+position = Vector2( 88, -289 )
+teleport_player_to = NodePath("PlayerPos")
+
+[node name="PlayerPos" type="Position2D" parent="Boot/Teleporters/->Store"]
+position = Vector2( 3196, -126 )
+
+[node name="MonsterPos" type="Position2D" parent="Boot/Teleporters/->Store"]
+position = Vector2( 3343, -240 )
+
+[node name="<-Store" parent="Boot/Teleporters" instance=ExtResource( 26 )]
+position = Vector2( 3285, -364 )
+teleport_player_to = NodePath("PlayerPos")
+teleport_monster_to = NodePath("MonsterPos")
+
+[node name="PlayerPos" type="Position2D" parent="Boot/Teleporters/<-Store"]
+position = Vector2( -3197, 124 )
+
+[node name="MonsterPos" type="Position2D" parent="Boot/Teleporters/<-Store"]
+position = Vector2( -3337, 87 )
+
+[node name="->Police" parent="Boot/Teleporters" instance=ExtResource( 26 )]
+position = Vector2( 756, -276 )
+teleport_player_to = NodePath("PlayerPos")
+teleport_monster_to = NodePath("MonsterPos")
+
+[node name="PlayerPos" type="Position2D" parent="Boot/Teleporters/->Police"]
+position = Vector2( 2525, 691 )
+
+[node name="MonsterPos" type="Position2D" parent="Boot/Teleporters/->Police"]
+position = Vector2( 2431, 591 )
+
+[node name="<-Police" parent="Boot/Teleporters" instance=ExtResource( 26 )]
+position = Vector2( 3257, 448 )
+teleport_player_to = NodePath("PlayerPos")
+teleport_monster_to = NodePath("MonsterPos")
+
+[node name="PlayerPos" type="Position2D" parent="Boot/Teleporters/<-Police"]
+position = Vector2( -2542, -690 )
+
+[node name="MonsterPos" type="Position2D" parent="Boot/Teleporters/<-Police"]
+position = Vector2( -2430, -601 )
 
 [node name="Pickups" type="Node" parent="Boot"]
 

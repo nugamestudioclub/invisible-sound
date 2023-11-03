@@ -66,7 +66,7 @@ public class AudioServiceProvider : IAudioServiceProvider {
 		bool dangerDirty = settings.TryGetValue<float>("danger_distance", out var distance)
 			&& distance != _dangerDistance;
 		_dangerDistance = distance;
-		GD.Print($"update audio dist: {distance}");
+		//GD.Print($"update audio dist: {distance}");
 		foreach( var player in _players )
 			if( dangerDirty )
 				HandleDangerDistance(player, _dangerDistance);

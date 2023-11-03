@@ -78,7 +78,7 @@ public class Game : IGame {
 		var player = GetEntityByName("PlayerEntity");
 		var monster = GetEntityByName("MonsterEntity");
 		if( player != null && monster != null ) {
-			GD.Print($"player null {player == null} monster null {monster == null}");
+			//GD.Print($"player null {player == null} monster null {monster == null}");
 			float distance = System.Numerics.Vector3.Distance(
 			player.Services.SceneService.ScenePosition,
 			monster.Services.SceneService.ScenePosition
