@@ -32,7 +32,7 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 
 
 	[Export]
-	private float _monsterRadius = 2.5f;
+	private float _monsterRadius = 50f;
 
 	public SceneServiceProvider() {
 		_walkmeshes = CreateWalkmeshes();
@@ -91,7 +91,7 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 			game.GlobalData.SetValue("health", health - 1);
 			GD.Print("lose health");
 			if( health <= 0) {
-				var scene = GD.Load<PackedScene>("res://Scenes/GameOver.tscn");
+				var scene = GD.Load<PackedScene>("res://Scenes/Menus/GameOver.tscn");
 				GetTree().ChangeSceneTo(scene);
 			}
 		}
