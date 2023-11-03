@@ -153,10 +153,13 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	}
 
 	private void HandleExteriorMusic(MusicPlayer exteriorMusic, Location location) {
-		if( location == Location.Exterior && !exteriorMusic.Playing )
-			exteriorMusic.Play();
-		else
+		if( location == Location.Exterior ) {
+			if( !exteriorMusic.Playing )
+				exteriorMusic.Play();
+		}
+		else {
 			exteriorMusic.Stop();
+		}
 	}
 	private void AudioPlayer_Finished(object sender, EventArgs e) {
 		if( sender is IAudioPlayer player )

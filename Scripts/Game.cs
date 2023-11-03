@@ -155,10 +155,14 @@ public class Game : IGame {
 	private void HandleMessageLocation(IReadOnlyBlackboard blackboard) {
 		var currentLocation = GlobalData.GetValue<Location>("location");
 		var location = currentLocation == Location.Exterior
-			? Location.PoliceStation : Location.PoliceStation;
+			? Location.PoliceStation : Location.Exterior;
 		var settings = new Blackboard();
 		settings.SetValue("location", location);
 		ServiceProviders.Audio.Update(settings);
 		GlobalData.SetValue("location", location);
+	}
+
+	public void Start() {
+		HandleMessageLocation(new Blackboard());
 	}
 }
