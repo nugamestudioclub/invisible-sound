@@ -2,6 +2,7 @@
 
 public interface ISceneService {
 	event EventHandler<CollisionEventArgs> Collision;
+	event EventHandler<MessageEventArgs> Message;
 
 	Entity Entity { get; set; }
 	string Name { get; }

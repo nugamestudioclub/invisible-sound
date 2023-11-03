@@ -16,6 +16,7 @@ public class SceneServiceNode : Node2D, ISceneService {
 	public NodePath graphicsServicePath;
 
 	public event EventHandler<CollisionEventArgs> Collision;
+	public event EventHandler<MessageEventArgs> Message;
 
 	public override void _EnterTree() {
 		var graphicsService = (GraphicsServiceNode)GetNode(graphicsServicePath);
@@ -37,4 +38,9 @@ public class SceneServiceNode : Node2D, ISceneService {
 	}
 
 	public virtual void Start() { }
+
+	protected virtual void OnMessage(MessageEventArgs args)
+	{
+		Message?.Invoke(this, args);
+	}
 }

@@ -17,6 +17,7 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 	private readonly Dictionary<object, Dictionary<object, CollisionEventArgs>> _pendingCollisions = new Dictionary<object, Dictionary<object, CollisionEventArgs>>();
 
 	public event System.EventHandler<CollisionEventArgs> Collision;
+	public event EventHandler<MessageEventArgs> Message;
 
 	public Queue<CollisionPair> Collisions => _collisions;
 	public Entity Entity { get; set; }
@@ -41,13 +42,6 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		var audioServiceProvider = new AudioServiceProvider(audioBalance, resourceServiceProvider.Default, this);
 		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
-	}
-
-	public override void _Ready() {
-		base._Ready();
-		//GD.Print("Create");
-		//game.Create(0, "TestNodeEntity");
-		//GD.Print("Finished");
 	}
 
 	public void Start() {

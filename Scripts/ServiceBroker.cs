@@ -25,14 +25,6 @@ public class ServiceBroker : IServiceBroker {
 	public IServicePackage Connect(EntityType type, int id, string resourceId) {
 		var data = Resources.Default.LoadScene(resourceId);
 		ISceneService sceneService = Scene.Connect(type, id, data);
-		/*
-		GD.Print("NULL");
-		GD.Print($"sceneService: {sceneService == null}");
-		GD.Print($"Resources: {Resources == null}");
-		GD.Print($"Services: {sceneService.Services == null}");
-		GD.Print($"GraphicsService: {sceneService.Services.GraphicsService == null}");
-		GD.Print($"Graphics: {Graphics == null}");
-		*/
 		return Connect(type, id, sceneService);
 	}
 
