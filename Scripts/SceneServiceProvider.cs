@@ -1,9 +1,12 @@
 ﻿using Collections;
 using Godot;
+using Invisiblesound.Scripts;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using CollisionPair = System.Tuple<CollisionData, CollisionData>;
 
-public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
+public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService {
 	Game game;
 
 	ServiceBroker serviceBroker;
@@ -18,13 +21,23 @@ public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 	public Queue<CollisionPair> Collisions => _collisions;
 	public Entity Entity { get; set; }
 
+	private readonly Dictionary<ISceneService, ISet<ISceneService>> _overlapping;
+
 	public IServicePackage SceneServices { get; }
+	public System.Numerics.Vector3 ScenePosition => System.Numerics.Vector3.Zero;
+	public System.Numerics.Vector3 Anchor => System.Numerics.Vector3.Zero;
+
+	private readonly Dictionary<WalkmeshMaterial, List<Walkmesh>> _walkmeshes;
+
+	public SceneServiceProvider() {
+		_walkmeshes = CreateWalkmeshes();
+	}
 
 	public override void _EnterTree() {
 		//attach service broker node to the root
 		var resourceServiceProvider = GetNode<ResourceServiceProvider>("Resources");
-        var graphicsServiceProvider = new GraphicsServiceProvider();
-        var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
+		var graphicsServiceProvider = new GraphicsServiceProvider();
+		var audioServiceProvider = new AudioServiceProvider(resourceServiceProvider.Default, this);
 		serviceBroker = new ServiceBroker(this, resourceServiceProvider, graphicsServiceProvider, audioServiceProvider);
 		game = new Game(serviceBroker);
 	}
@@ -39,20 +52,29 @@ public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 	public override void _Process(float delta) {
 		base._Process(delta);
 		if( !started ) {
-			var nodes = GetTree().GetNodesInGroup("entity");
-			GD.Print($"found {nodes.Count} existing entity node(s)");
-			foreach( var node in nodes ) {
-				if( node is SceneServiceNode sceneService ) {
-					sceneService.Collision += SceneService_Collision;
-					GD.Print("scene requesting creation of entity...");
-					game.CreateEntity(sceneService.Type, sceneService);
-				}
-			}
-
+			RegisterEntities();
+			RegisterWalkmeshes();
 			started = true;
 			//GD.Print("Create");
 			//var entity = game.Create(0, "TestNodeEntity");
 		}
+	}
+
+	public static string GetName(WalkmeshMaterial material) {
+		return Enum.GetNames(typeof(WalkmeshMaterial))[(int)material];
+	}
+
+	public WalkmeshMaterial GetMaterialAt(System.Numerics.Vector3 position) {
+		// GD.Print($"{nameof(GetMaterialAt)}({position}");
+		foreach( var material in _walkmeshes.Keys ) {
+			// GD.Print($"material: {material}");
+			foreach( var walkmesh in _walkmeshes[material] ) {
+				// GD.Print($"\twalkmesh: '{walkmesh.Name}'");
+				if( Geometry.IsPointInPolygon(new Vector2(position.X, position.Y), walkmesh.Polygon) )
+					return material;
+			}
+		}
+		return WalkmeshMaterial.None;
 	}
 
 	public override void _PhysicsProcess(float delta) {
@@ -100,5 +122,36 @@ public class SceneServiceProvider : Node, ISceneServiceProvider, ISceneService {
 		}
 	}
 
-	public void Alert(System.Numerics.Vector2 position) {	}
+	public void Alert(System.Numerics.Vector2 position) { }
+
+	private static Dictionary<WalkmeshMaterial, List<Walkmesh>> CreateWalkmeshes() {
+		var walkmeshes = new Dictionary<WalkmeshMaterial, List<Walkmesh>>();
+		foreach( var x in Enum.GetValues(typeof(WalkmeshMaterial)) ) {
+			var material = (WalkmeshMaterial)Convert.ChangeType(x, typeof(WalkmeshMaterial));
+			walkmeshes.Add(material, new List<Walkmesh>());
+		}
+		walkmeshes.Remove(WalkmeshMaterial.None);
+		return walkmeshes;
+	}
+
+	private void RegisterEntities() {
+		var entityNodes = GetTree().GetNodesInGroup("entity");
+		GD.Print($"found {entityNodes.Count} existing entity node(s)");
+		foreach( var node in entityNodes ) {
+			if( node is SceneServiceNode sceneService ) {
+				sceneService.Provider = this;
+				sceneService.Collision += SceneService_Collision;
+				GD.Print("scene requesting creation of entity...");
+				game.CreateEntity(sceneService.Type, sceneService);
+			}
+		}
+	}
+
+	private void RegisterWalkmeshes() {
+		var walkmeshNodes = GetTree().GetNodesInGroup("walkmesh");
+		foreach( var node in walkmeshNodes )
+			if( node is Walkmesh walkmesh )
+				if( walkmesh.MaterialType != WalkmeshMaterial.None )
+					_walkmeshes[walkmesh.MaterialType].Add(walkmesh);
+	}
 }

@@ -20,13 +20,14 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 			if( _parent is Node oldParent )
 				oldParent.RemoveChild(this);
 			if( value is Node newParent ) {
-				// GD.Print($"{Name} setting new parent {newParent.Name}");
+				var position = GlobalPosition;
 				newParent.AddChild(this);
+				GlobalPosition = position;
 			}
-
 			_parent = value;
 		}
 	}
+
 
 	System.Numerics.Vector3 IAudioPlayer.Position {
 		get => new System.Numerics.Vector3(Position.x, Position.y, 0);

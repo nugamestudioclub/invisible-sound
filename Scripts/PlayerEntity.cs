@@ -7,8 +7,28 @@ public class PlayerEntity : SceneServiceNode {
 
 	private float _footstepElapsed = float.MinValue;
 
+	private KinematicBody2D _kinematicBody;
+
+	public override System.Numerics.Vector3 ScenePosition =>
+		new System.Numerics.Vector3(
+			_kinematicBody.GlobalPosition.x,
+			_kinematicBody.GlobalPosition.y,
+			0
+		);
+
+	public override System.Numerics.Vector3 Anchor =>
+		new System.Numerics.Vector3(
+			_kinematicBody.Position.x,
+			_kinematicBody.Position.y,
+			0
+		);
+
 	public PlayerEntity() {
 		Type = EntityType.Character;
+	}
+
+	public override void _Ready() {
+		_kinematicBody = GetNode<KinematicBody2D>("Player");
 	}
 
 	private bool HasFootstepStarted => _footstepElapsed >= 0f;
@@ -33,8 +53,12 @@ public class PlayerEntity : SceneServiceNode {
 	}
 
 	private void StartFootstep() {
-		// TODO: Detect ground material
-		Entity.Services.AudioService.PlayFootstep("Dirt");
+		var material = Entity.Services.SceneService.GetMaterialAt(ScenePosition);
+		var materialName = SceneServiceProvider.GetName(material);
+		GD.Print(materialName);
+		if( materialName == "None" )
+			materialName = "Dirt";
+		// Entity.Services.AudioService.PlayFootstep(materialName);
 		_footstepElapsed = 0f;
 	}
 
