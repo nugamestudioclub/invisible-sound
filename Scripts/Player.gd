@@ -14,6 +14,8 @@ signal area_collision(player, area)
 
 signal footstep()
 
+signal teleport();
+
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 
 export var health: int = 3
@@ -86,3 +88,7 @@ func _on_interactable_out_of_range_of(interacting : Interactable):
 
 func _sort_interactables(a, b):
 	return a.interact_priority > b.interact_priority
+
+func _teleport(pos):
+	set_global_position(pos);
+	emit_signal("teleport")

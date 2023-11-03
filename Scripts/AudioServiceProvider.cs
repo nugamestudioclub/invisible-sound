@@ -64,8 +64,10 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	}
 
 	public void Update(IReadOnlyBlackboard settings) {
-		float distance = settings.GetValueOrDefault("danger_distance", -1f);
 		var location = settings.GetValueOrDefault("location", Location.None);
+		if( location == Location.None )
+			return;
+		float distance = settings.GetValueOrDefault("danger_distance", -1f);
 		var exteriorMusic = Game.GetEntityByName("ExteriorMusic")?.Services.SceneService as MusicPlayer;
 		var interiorMusic1 = Game.GetEntityByName("InteriorMusic1")?.Services.SceneService as MusicPlayer;
 		var interiorMusic2 = Game.GetEntityByName("InteriorMusic2")?.Services.SceneService as MusicPlayer;
