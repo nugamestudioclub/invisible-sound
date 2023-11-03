@@ -452,7 +452,7 @@ position = Vector2( -381, 320 )
 
 [node name="Music" type="Node" parent="Boot"]
 
-[node name="InteriorMusic" parent="Boot/Music" instance=ExtResource( 16 )]
+[node name="InteriorMusic1" parent="Boot/Music" instance=ExtResource( 16 )]
 _resource = ExtResource( 28 )
 
 [node name="InteriorMusic2" parent="Boot/Music" instance=ExtResource( 16 )]
