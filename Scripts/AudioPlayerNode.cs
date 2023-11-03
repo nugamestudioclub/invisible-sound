@@ -46,7 +46,7 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	public void PlayLooping(string name) {
 		var resourceService = _parent.Entity.Services.ResourceService;
 		if( (resourceService.Assets.TryGetValue(name, out Resource result)
-		|| resourceService.LoadResource(name).TryGetValue(name, out result)) ) {
+		|| resourceService.LoadResource(name).TryGetValue("resource", out result)) ) {
 			if( result is AudioStream stream ) {
 				Stream = stream;
 				Play();
@@ -57,7 +57,7 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 	public void PlayOneShot(string name) {
 		var resourceService = _parent.Entity.Services.ResourceService;
 		if( (resourceService.Assets.TryGetValue(name, out Resource result)
-		|| resourceService.LoadResource(name).TryGetValue(name, out result)) ) {
+		|| resourceService.LoadResource(name).TryGetValue("resource", out result)) ) {
 			if( result is AudioStream stream ) {
 				Stream = stream;
 				Play();
