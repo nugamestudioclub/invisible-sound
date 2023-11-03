@@ -133,4 +133,11 @@ public class PlayerEntity : SceneServiceNode {
 		else if( HasFootstepStarted )
 			_footstepElapsed += delta;
 	}
+
+	private void _Player_Teleport() {
+		var data = new Blackboard();
+		data.SetValue("messageType", "location");
+		var e = new MessageEventArgs(data);
+		OnMessage(e);
+	}
 }

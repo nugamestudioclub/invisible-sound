@@ -4,6 +4,9 @@ public class MonsterEntity : SceneServiceNode {
 	private KinematicBody2D _kinematicBody;
 	private CanvasItem visualizerParticle;
 
+	private AudioPlayerNode _track1;
+	private AudioPlayerNode _track2;
+
 	public override System.Numerics.Vector3 ScenePosition =>
 		new System.Numerics.Vector3(
 			_kinematicBody.GlobalPosition.x,
@@ -34,7 +37,15 @@ public class MonsterEntity : SceneServiceNode {
 
 	public override void Start() {
 		base.Start();
-		Entity.Services.AudioService.PlayLooping("res://Audio/Monster/Creature.wav", (int)AudioTrack.Danger1, this);
-		Entity.Services.AudioService.PlayLooping("res://Audio/Monster/Creature2.wav", (int)AudioTrack.Danger2, this);
+		_track1 = (AudioPlayerNode)Entity.Services.AudioService.PlayLooping("res://Audio/Monster/Creature.wav", (int)AudioTrack.Danger1, this);
+		_track2 = (AudioPlayerNode)Entity.Services.AudioService.PlayLooping("res://Audio/Monster/Creature2.wav", (int)AudioTrack.Danger2, this);
+	}
+
+	public override void _PhysicsProcess(float delta) {
+		base._PhysicsProcess(delta);
+		if( _track1 != null  )
+			_track1.GlobalPosition = _kinematicBody.GlobalPosition;
+		if( _track2 != null )
+			_track2.GlobalPosition = _kinematicBody.GlobalPosition;
 	}
 }

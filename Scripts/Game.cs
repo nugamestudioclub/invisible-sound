@@ -87,6 +87,7 @@ public class Game : IGame {
 		);
 			var data = new Blackboard();
 			data.SetValue("danger_distance", distance);
+			data.SetValue("location", GlobalData.GetValue<Location>("location"));
 			ServiceProviders.Audio.Update(data);
 		}
 	}
@@ -152,11 +153,16 @@ public class Game : IGame {
 	}
 
 	private void HandleMessageLocation(IReadOnlyBlackboard blackboard) {
-		if( blackboard.TryGetValue<Location>("location", out var location) ) {
-			var settings = new Blackboard();
-			settings.SetValue("location", location);
-			ServiceProviders.Audio.Update(settings);
-			GlobalData.SetValue("location", location);
-		}
+		var currentLocation = GlobalData.GetValue<Location>("location");
+		var location = currentLocation == Location.Exterior
+			? Location.PoliceStation : Location.Exterior;
+		var settings = new Blackboard();
+		settings.SetValue("location", location);
+		ServiceProviders.Audio.Update(settings);
+		GlobalData.SetValue("location", location);
+	}
+
+	public void Start() {
+		HandleMessageLocation(new Blackboard());
 	}
 }

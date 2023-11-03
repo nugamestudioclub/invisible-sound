@@ -64,8 +64,10 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	}
 
 	public void Update(IReadOnlyBlackboard settings) {
-		float distance = settings.GetValueOrDefault("danger_distance", -1f);
 		var location = settings.GetValueOrDefault("location", Location.None);
+		if( location == Location.None )
+			return;
+		float distance = settings.GetValueOrDefault("danger_distance", -1f);
 		var exteriorMusic = Game.GetEntityByName("ExteriorMusic")?.Services.SceneService as MusicPlayer;
 		var interiorMusic1 = Game.GetEntityByName("InteriorMusic1")?.Services.SceneService as MusicPlayer;
 		var interiorMusic2 = Game.GetEntityByName("InteriorMusic2")?.Services.SceneService as MusicPlayer;
@@ -151,10 +153,13 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	}
 
 	private void HandleExteriorMusic(MusicPlayer exteriorMusic, Location location) {
-		if( location == Location.Exterior && !exteriorMusic.Playing )
-			exteriorMusic.Play();
-		else
+		if( location == Location.Exterior ) {
+			if( !exteriorMusic.Playing )
+				exteriorMusic.Play();
+		}
+		else {
 			exteriorMusic.Stop();
+		}
 	}
 	private void AudioPlayer_Finished(object sender, EventArgs e) {
 		if( sender is IAudioPlayer player )

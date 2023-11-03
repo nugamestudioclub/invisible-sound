@@ -20,7 +20,7 @@ func _ready():
 		alarm_tile.connect("activate_alarm", alarm_manager, "_on_activate_alarm")
 	
 	for teleporter in get_tree().get_nodes_in_group("Teleporter"):
-		teleporter.connect("teleport_player", player, "set_global_position")
+		teleporter.connect("teleport_player", player, "_teleport")
 		teleporter.connect("teleport_monster", monster, "set_global_position")
 
 	player.connect("activate_visualizer", audio_visualizer, "activate")
