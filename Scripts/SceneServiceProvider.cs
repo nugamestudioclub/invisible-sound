@@ -89,6 +89,11 @@ public class SceneServiceProvider : Node2D, ISceneServiceProvider, ISceneService
 		if( distance <= _monsterRadius ) {
 			int health = game.GlobalData.GetValue<int>("health");
 			game.GlobalData.SetValue("health", health - 1);
+			GD.Print("lose health");
+			if( health <= 0) {
+				var scene = GD.Load<PackedScene>("res://Scenes/GameOver.tscn");
+				GetTree().ChangeSceneTo(scene);
+			}
 		}
 	}
 
