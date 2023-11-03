@@ -33,12 +33,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_key_pressed(KEY_E): #is_action_just_pressed("ui_accept"):
 		if (ResourceManager.flags[ResourceManager.FlagName.INFINITE_VISUALIZER] 
 		or ResourceManager.use_battery()):
 			emit_signal("activate_visualizer") 
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_key_pressed(KEY_E):
 		if interact_field.size() > 0:
 			emit_signal("interacting_with", self, interact_field[0])
 

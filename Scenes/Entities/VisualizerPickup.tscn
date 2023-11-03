@@ -7,7 +7,7 @@
 
 [sub_resource type="CircleShape2D" id=5]
 
-[node name="VisualizerEntity" type="Node2D"]
+[node name="VisualizerEntity" type="Node2D" groups=["entity"]]
 script = ExtResource( 3 )
 graphicsServicePath = NodePath("Graphics")
 _consumableType = 3
@@ -23,3 +23,5 @@ position = Vector2( 0, 30 )
 shape = SubResource( 5 )
 
 [node name="Graphics" parent="." instance=ExtResource( 4 )]
+
+[connection signal="activate" from="VisualizerPickup" to="." method="_Consume"]

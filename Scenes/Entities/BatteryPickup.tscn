@@ -7,7 +7,7 @@
 
 [sub_resource type="CircleShape2D" id=5]
 
-[node name="BatteryEntity" type="Node2D"]
+[node name="BatteryEntity" type="Node2D" groups=["entity"]]
 script = ExtResource( 2 )
 graphicsServicePath = NodePath("Graphics")
 _consumableType = 4
@@ -22,3 +22,5 @@ texture = ExtResource( 4 )
 shape = SubResource( 5 )
 
 [node name="Graphics" parent="." instance=ExtResource( 1 )]
+
+[connection signal="activate" from="BatteryPickup" to="." method="_Consume"]

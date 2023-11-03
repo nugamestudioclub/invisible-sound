@@ -2,17 +2,41 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 public class Game : IGame {
 	private int currentId = 0;
-
 	public IServiceBroker ServiceProviders { get; private set; }
 
 	private readonly Dictionary<string, Entity> _entities = new Dictionary<string, Entity>();
 
+	public IBlackboard GlobalData = new Blackboard();
 	public Game(IServiceBroker serviceProviders) {
 		ServiceProviders = serviceProviders;
-	}
+        /*
+		 * public bool HasVisualizer { get; private set; }
+    public bool HasGas { get; private set; }
+
+    public bool HasKey { get; private set; }
+
+    [Export]
+	private float _maxBatteryLife;
+	public float MaxBatteryLife => _maxBatteryLife;
+
+    [Export]
+    private float _batteryStep;
+    public float BatteryStep => _batteryStep;
+
+    public float CurrentBatteryLife { get; private set; }
+		 */
+        GlobalData.SetValue("hasVisualizer", false);
+        GlobalData.SetValue("hasGas", false);
+        GlobalData.SetValue("hasKey", false);
+		float maxBatteryLife = 100f;
+        GlobalData.SetValue("maxBatteryLife", maxBatteryLife);
+        GlobalData.SetValue("currentBatteryLife", maxBatteryLife/2);
+        GlobalData.SetValue("batteryStep", 20f);
+    }
 
 	public Entity CreateEntity(EntityType type, string resourceId) {
 		int id = currentId++;
@@ -22,7 +46,9 @@ public class Game : IGame {
 		var entity = new Entity(this, services, type, id, resourceId);
 		_entities[name] = entity;
 		services.SceneService.Entity = entity;
-		return entity;
+		services.SceneService.Message += SceneService_Message;
+
+        return entity;
 	}
 
 	public Entity CreateEntity(EntityType type, ISceneService sceneService) {
@@ -34,7 +60,8 @@ public class Game : IGame {
 		var entity = new Entity(this, services, type, id, name);
 		_entities[name] = entity;
 		sceneService.Entity = entity;
-		return entity;
+        services.SceneService.Message += SceneService_Message;
+        return entity;
 	}
 
 	public Entity GetEntityByName(string name) {
@@ -75,5 +102,50 @@ public class Game : IGame {
 			return true;
 		}
 		return false;
+	}
+
+	private void SceneService_Message(object sender, MessageEventArgs e)
+	{
+		var blackboard= e.Blackboard;
+		if (blackboard.TryGetValue("messageType", out string messageType))
+		{
+			if (messageType == "consume")
+			{
+				if (blackboard.TryGetValue("consumableType", out ConsumableType consumableType))
+				{
+                    var UI = GetEntityByName("UIEntity");
+                    if (UI.Services.SceneService is UIEntity uiScene)
+                    {
+                        switch (consumableType)
+                        {
+                            case ConsumableType.None:
+                                break;
+                            case ConsumableType.Key:
+                                GlobalData.SetValue("hasKey", false);
+								uiScene.ShowKeycard = true;
+                                break;
+                            case ConsumableType.Gas:
+                                GlobalData.SetValue("hasGas", false);
+                                uiScene.ShowGas = true;
+                                break;
+                            case ConsumableType.Visualizer:
+                                GlobalData.SetValue("hasVisualizer", true);
+								uiScene.ShowVisualizer = true;
+                                break;
+                            case ConsumableType.Battery:
+								float currentBatteryLife = System.Math.Min(
+									GlobalData.GetValue<float>("batteryStep") + GlobalData.GetValue<float>("currentBatteryLife"),
+                                    GlobalData.GetValue<float>("maxBatteryLife"));
+								GlobalData.SetValue("currentBatteryLife", currentBatteryLife);
+								float percentLife = currentBatteryLife / GlobalData.GetValue<float>("maxBatteryLife");				
+								uiScene.CurrentVisualizerProgress = percentLife;
+                                break;
+                        }
+                    }
+                    
+                    
+                }
+			}
+		}
 	}
 }
