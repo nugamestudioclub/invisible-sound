@@ -22,7 +22,7 @@ margin_top = 21.0
 margin_right = 318.0
 margin_bottom = 339.0
 size_flags_horizontal = 3
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 expand = true
 
 [node name="CardContainer" type="AspectRatioContainer" parent="HBoxContainer"]
@@ -36,5 +36,5 @@ margin_top = 21.0
 margin_right = 318.0
 margin_bottom = 339.0
 size_flags_horizontal = 3
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 expand = true

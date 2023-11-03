@@ -8,11 +8,14 @@ public class UIEntity : SceneServiceNode
     public override void _EnterTree()
     {
         base._EnterTree();
-        gasContainer = GetNode<CanvasItem>("FullUI/InventoryUI/HBoxContainer/GasContainer");
-        keycardContainer = GetNode<CanvasItem>("FullUI/InventoryUI/HBoxContainer/CardContainer");
+        gasContainer = GetNode<CanvasItem>("FullUI/HBoxContainer/GasContainer");
+        
+        keycardContainer = GetNode<CanvasItem>("FullUI/HBoxContainer/CardContainer");
         visualizerProgress = GetNode<TextureProgress>("FullUI/VisualizerProgress");
-        //need to set up visualizer here too
-
+        ShowGas = false;
+        ShowKeycard = false;
+        ShowVisualizer = false;
+        CurrentVisualizerProgress = 50;
     }
     public bool ShowGas { 
         get => gasContainer.Visible;
