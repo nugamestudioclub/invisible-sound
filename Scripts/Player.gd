@@ -16,6 +16,7 @@ signal footstep()
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 
+export var health: int = 3
 export var speed : float = 100
 
 var direction : Vector2 = Vector2(0, -1)

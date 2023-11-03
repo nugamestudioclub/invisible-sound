@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/Visualizer/Center_Cube.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Visualizer/IMG_0492.PNG" type="Texture" id=2]
+[ext_resource path="res://Scripts/VisualizerProgress.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Visualizer/Progress.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/GenericTool.gd" type="Script" id=5]
+
+[node name="VisualizerProgress" type="TextureProgress"]
+margin_right = 114.0
+margin_bottom = 82.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 4 )
+texture_progress_offset = Vector2( 32, 30 )
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+margin_left = 9.0
+margin_top = 27.0
+margin_right = 27.0
+margin_bottom = 45.0
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 5 )
+
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]
