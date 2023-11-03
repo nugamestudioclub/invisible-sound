@@ -106,3 +106,8 @@ timed = true
 waiting_time = 1.0
 on_timer_finished = 3
 next_state = NodePath("../GoToNode")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
