@@ -13,11 +13,13 @@ public class AudioService : IAudioService {
 		_provider = provider;
 		_root = root;
 		_footsteps = GetFootstepRoundRobins(data);
+		/*
 		Godot.GD.Print(((Godot.Node)_root).Name);
 		foreach( string key in _footsteps.Keys ) {
 			Godot.GD.Print($"material: '{key}'");
 			Godot.GD.Print(string.Join("\n", _footsteps[key]));
 		}
+		*/
 	}
 
 	public void PlayFootstep(string material) {
@@ -37,7 +39,7 @@ public class AudioService : IAudioService {
 		player.Parent = parent;
 		player.Position = parent.ScenePosition + offset;
 		player.PlayLooping(name);
-		Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+		// Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
 	}
 
 	public void PlayOneShot(string name, int track, ISceneService parent) {
@@ -57,7 +59,7 @@ public class AudioService : IAudioService {
 		player.Parent = parent;
 		player.Position = parent.ScenePosition + offset;
 		player.PlayOneShot(name);
-		Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+		// Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
 	}
 
 	public void PlayOneShot(string name, int track, Vector3 position) {

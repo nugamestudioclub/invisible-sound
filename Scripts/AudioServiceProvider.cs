@@ -2,6 +2,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 public class AudioServiceProvider : IAudioServiceProvider {
 	public static readonly string FootstepPath = "res://Audio/Footsteps";
@@ -64,6 +65,8 @@ public class AudioServiceProvider : IAudioServiceProvider {
 	public void Update(IReadOnlyBlackboard settings) {
 		bool dangerDirty = settings.TryGetValue<float>("danger_distance", out var distance)
 			&& distance != _dangerDistance;
+		_dangerDistance = distance;
+		GD.Print($"update audio dist: {distance}");
 		foreach( var player in _players )
 			if( dangerDirty )
 				HandleDangerDistance(player, _dangerDistance);

@@ -113,7 +113,7 @@ public class PlayerEntity : SceneServiceNode {
 	private void StartFootstep() {
 		var material = Entity.Services.SceneService.GetMaterialAt(ScenePosition);
 		var materialName = SceneServiceProvider.GetName(material);
-		GD.Print(materialName);
+		// GD.Print(materialName);
 		if( materialName == "None" )
 			materialName = "Dirt";
 		Entity.Services.AudioService.PlayFootstep(materialName);

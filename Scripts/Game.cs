@@ -48,17 +48,18 @@ public class Game : IGame {
 			HandleAlarmCollision(collision.Item1);
 			HandleAlarmCollision(collision.Item2);
 		}
-		/*
 		var player = GetEntityByName("PlayerEntity");
 		var monster = GetEntityByName("MonsterEntity");
-		float distance = System.Numerics.Vector3.Distance(
+		if( player != null && monster != null ) {
+			GD.Print($"player null {player == null} monster null {monster == null}");
+			float distance = System.Numerics.Vector3.Distance(
 			player.Services.SceneService.ScenePosition,
 			monster.Services.SceneService.ScenePosition
 		);
-		var data = new Blackboard();
-		data.SetValue("danger_distance", distance);
-		ServiceProviders.Audio.Update(data);
-		*/
+			var data = new Blackboard();
+			data.SetValue("danger_distance", distance);
+			ServiceProviders.Audio.Update(data);
+		}
 	}
 
 	private bool HandleAlarmCollision(CollisionData collisionData) {
@@ -70,7 +71,7 @@ public class Game : IGame {
 			var x = collisionData.Args.GetValue<float>("x");
 			var y = collisionData.Args.GetValue<float>("y");
 			alarm.Services.SceneService.Alert(new System.Numerics.Vector2(x, y));
-			GD.Print($"\tALARM @ ({x,2},{y,2})");
+			// GD.Print($"\tALARM @ ({x,2},{y,2})");
 			return true;
 		}
 		return false;
