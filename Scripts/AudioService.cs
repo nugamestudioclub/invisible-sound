@@ -36,10 +36,10 @@ public class AudioService : IAudioService {
 
 	public void PlayOneShot(string name, int track, ISceneService parent, Vector3 offset) {
 		var player = _provider.Connect(track);
-		player.Position = parent.ScenePosition + offset;
 		player.Parent = parent;
+		player.Position = parent.ScenePosition + offset;
 		player.PlayOneShot(name);
-		//Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
+		Godot.GD.Print($"playing '{name}' (track {track}) @ {parent.ScenePosition}");
 	}
 
 	public void PlayOneShot(string name, int track, Vector3 position) {

@@ -58,7 +58,7 @@ public class PlayerEntity : SceneServiceNode {
 		GD.Print(materialName);
 		if( materialName == "None" )
 			materialName = "Dirt";
-		// Entity.Services.AudioService.PlayFootstep(materialName);
+		Entity.Services.AudioService.PlayFootstep(materialName);
 		_footstepElapsed = 0f;
 	}
 

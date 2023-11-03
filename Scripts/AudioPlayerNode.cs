@@ -19,11 +19,8 @@ public class AudioPlayerNode : AudioStreamPlayer2D, IAudioPlayer {
 				return;
 			if( _parent is Node oldParent )
 				oldParent.RemoveChild(this);
-			if( value is Node newParent ) {
-				var position = GlobalPosition;
+			if( value is Node newParent )
 				newParent.AddChild(this);
-				GlobalPosition = position;
-			}
 			_parent = value;
 		}
 	}
