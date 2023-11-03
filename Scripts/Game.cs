@@ -121,11 +121,12 @@ public class Game : IGame {
                             case ConsumableType.None:
                                 break;
                             case ConsumableType.Key:
-                                GlobalData.SetValue("hasKey", false);
+                                GlobalData.SetValue("hasKey", true);
 								uiScene.ShowKeycard = true;
                                 break;
                             case ConsumableType.Gas:
-                                GlobalData.SetValue("hasGas", false);
+                                GlobalData.SetValue("hasGas", true);
+								GD.Print("showing gas");
                                 uiScene.ShowGas = true;
                                 break;
                             case ConsumableType.Visualizer:

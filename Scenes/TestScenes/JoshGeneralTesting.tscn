@@ -33,7 +33,6 @@ overcharge_dist = 128.0
 [node name="Player" parent="." instance=ExtResource( 4 )]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
 
 [node name="AudioVisualizerManager" parent="." instance=ExtResource( 3 )]
 

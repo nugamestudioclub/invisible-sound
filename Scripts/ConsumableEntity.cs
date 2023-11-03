@@ -9,6 +9,7 @@ public class ConsumableEntity : SceneServiceNode
     public ConsumableType ConsumableType => _consumableType;
     public void _Consume()
     {
+        GD.Print("consimung from entity");
         //consume the type
         IBlackboard blackboard = new Blackboard();
         blackboard.SetValue("messageType", "consume");
